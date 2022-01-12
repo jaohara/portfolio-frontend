@@ -1,0 +1,2666 @@
+// Font Imports
+// JetBrains Mono, Roboto
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Roboto&display=swap');
+// Raleway, Source Sans Pro
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap');
+
+// Outfit 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap');
+
+
+// Here are a few to try on
+
+// fonts
+// $mono-font: "JetBrains Mono";
+$mono-font: "Outfit";
+$header-font: "BigolaDisplay-Regular";
+// $main-font: "Roboto";
+$main-font: "Raleway";
+
+
+// some linked in font families, mostly saved for reference
+$leco1976: "LECO1976-Regular";
+$airo: "Airo-Medium";
+$bigola: "BigolaDisplay-Regular";
+$albula: "AlbulaPro-Bold";
+$sublima: "Sublima-ExtraBold";
+
+// colors
+$blue-main: #0073ff;
+$blue-main-darker: #003980;
+$green-main: #bbff6e;
+$green-main-dark: #8CBF52;
+$green-main-darker: #2F401B;
+$green-light: #e6ffb3;
+$green-lighter: #edffe6;
+
+$grey-light-lighter: #efefef;
+$grey-light-mid: #dedede;
+$grey-light-dark: #bcbcbc;
+
+$grey-darker: #1d1f23;
+$grey-darker-translucent: #1d1f23bb;
+$grey-dark-mid: #21252b;
+$grey-dark-lighter: #282c34;
+$grey-dark-lightest: #30353e;
+
+
+$discord-color: #7289da;
+$github-color: #24292e;
+$darkmode-color: #ffcf2b;
+
+// some generic colors
+$red: #e06c75;
+$blue: #61afef;
+$green: #98c379;
+$orange: #e5c07b;
+$purple: #c577dc;
+$white: #efefef;
+
+// some more specific colors
+$mint: #68e4b6;
+// $coffee-brown: #312108;
+$coffee-brown: #482d28;
+
+
+$common-border-radius: 6px;
+$common-transition: .4s background-color;
+$dark-transition: .4s background-color, .4s color, .4s background;
+$link-transition: 50ms;
+$responsive-transition: .4s font-size;
+
+// mixins
+@mixin before-link-decoration {
+  color: $blue;
+  content: "\27BC";
+  display: inline-block;
+  margin-left: -1.25em;
+  opacity: 0;
+  transition: .2s opacity;
+  width: 1.25em;
+}
+
+@mixin common-shadow {
+  box-shadow: 0px 5px 15px $grey-darker-translucent;
+}
+
+
+
+
+// responsive variables
+// calcs to account for scrollbar width when it isn't hidden
+// $scrollbar-width: calc(100vw - 100%);
+// $content-wrapper-large-width: calc(1200px - $scrollbar-width);
+$content-wrapper-large-width: 1200px;
+// $content-wrapper-small-width: calc(900px - $scrollbar-width);
+$content-wrapper-small-width: 900px;
+// $content-wrapper-tablet-width: calc(720px - $scrollbar-width);
+$content-wrapper-tablet-width: 720px;
+// $content-wrapper-phone-width: calc(580px - $scrollbar-width);
+$content-wrapper-phone-width: 580px;
+$header-large-width: calc(20% - calc(100vw - 100%));
+$full-page-width: calc(100% - calc(100vw - 100%));
+
+* {
+  margin-top: 0;
+}
+
+html {
+  // this accounts for scrollbars adding width when they pop in
+  // padding-left: calc(100vw - 100%);
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  // width: calc(100vw - 100%);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+// main body and dark/light mode stuff
+body {
+  color: $white;
+  // font-family: $main-font;
+  font-family: $mono-font;
+  font-size: 1.2rem;
+  margin: 0;
+  min-height: 100vh;
+  opacity: 1;
+  overflow-x: hidden;
+  padding: 0;
+  width: 100vw; // this works in tandem with overflow-x: hidden to counter scrollbar jump
+
+  &.dark-mode {
+    background-color: $grey-dark-mid;
+
+    // todo: input hover effects?
+    input {
+      // background-color: $grey-dark-lighter;
+      color: $grey-light-lighter;
+    }
+
+    label {
+      color: $blue;
+      font-weight: bold;
+    }
+
+    #main-content-wrapper {
+      background-color: $grey-dark-mid;
+    }
+
+    #page-body-wrapper {
+      color: $grey-light-lighter;
+    }
+
+    p {
+      color: $grey-light-lighter;
+    }
+
+  }
+}
+
+// =======================
+//    MODEL COLOR STUFF
+// =======================
+$model-color-transition: 400ms;
+$mct: $model-color-transition; // yeah, it's gross, whatever man!
+$ui-transition: 150ms;
+
+@mixin model-color ($color) {
+  h6, h5, h4, h3, h2, h1, header, .footer-text, .pretty-date-value, a {
+    color: $color;
+    transition: color $model-color-transition;
+  }
+
+  // page content things that need to be styled
+  .page-content-wrapper {
+    a {
+      box-shadow: 0px 1px 0px $color;
+      transition: box-shadow $model-color-transition, color $model-color-transition;
+
+      &:hover {
+        box-shadow: 0px 4px 0px $color;
+        transition: box-shadow $link-transition, color $model-color-transition;
+      }
+    }
+  }
+
+  .header-title {
+    // color: $color;
+    // box-shadow: 8px 8px 0px $color;
+    transition: color $model-color-transition,  $model-color-transition;
+  }
+
+  .main-nav-list-item .active {
+    background-color: $color;
+    transition: background-color $model-color-transition;
+  }
+
+  .model-controls svg {
+    fill: $color;
+    stroke: $color;
+    transition: fill $model-color-transition, stroke $model-color-transition, opacity $ui-transition;
+  };
+
+  .model-controls-dropdown-active svg, .model-controls-button-active svg {
+    fill: $grey-dark-mid;
+    stroke: $grey-dark-mid;
+  }
+
+  .model-controls-filter.model-controls-active, .model-controls-search-model-controls-active {
+    transition: border-bottom $model-color-transition;
+    // border-bottom: 4px solid $color;
+  }
+
+  .model-controls-dropdown-options li {
+    transition: color $ui-transition, background-color $ui-transition;
+
+    &:hover, 
+    &.option-targetted:not(.model-controls-dropdown-options:hover .option-targetted) {
+      background-color: $color;
+    }
+  }
+
+  .model-controls-button {
+    transition: color $ui-transition, background-color $ui-transition, border-radius $ui-transition;
+  }
+
+  .model-controls-button.model-controls-dropdown.model-controls-dropdown-active {
+    color: $grey-dark-mid;
+    background: $color;
+  }
+
+  .model-controls-button.model-controls-button-active {
+    background: $color;
+  }
+
+  .model-controls-input::selection {
+    color: $grey-dark-mid;
+    background: $color;
+  }
+
+  .model-tag.filter-match {
+    background-color: $color;
+    color: $grey-dark-mid;
+    transition: 
+      background-color $model-color-transition, 
+      color $model-color-transition, 
+      filter $ui-transition;
+
+    &:hover {
+      transition: 
+        background-color $model-color-transition, 
+        color $model-color-transition, 
+        filter $ui-transition;
+    }
+  }
+
+  .model-tag:hover {
+    border: 2px solid $color;
+    transition: border $model-color-transition;
+  }
+
+  .model-tag svg {
+    color: $color;
+    transition: color $model-color-transition;
+  }
+
+  #main-content-wrapper ul li::before, #main-content-wrapper ol li::before {
+    color: $color;
+  }
+
+  #main-content-wrapper p > code, #main-content-wrapper li > code {
+    color: $color;
+  }
+
+  strong, em {
+    color: $color;
+    transition: color $model-color-transition;
+  }
+}
+
+.page-wrapper {
+  @include model-color($white);
+}
+
+.page-wrapper.about-page {
+  @include model-color($orange);
+}
+
+.page-wrapper.blog-page {
+  @include model-color($mint);
+}
+
+.page-wrapper.portfolio-page {
+  @include model-color($blue);
+}
+
+.page-wrapper.static-page { 
+  @include model-color($red);
+}
+
+
+// ==================
+//    HEADER STUFF
+// ==================
+
+
+@mixin ui-shadow {
+  box-shadow: 0px 4px 6px $grey-dark-mid;
+}
+
+
+header {
+  @include ui-shadow();
+
+  background-color: $grey-dark-mid;
+  // box-shadow: 0px 4px 6px $grey-dark-mid;
+  padding-top: 1.5em;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.main-nav {
+  font-size: .9em;
+  max-width: 50%;
+}
+
+ul.main-nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+  width: 100%;
+}
+
+li.main-nav-list-item {
+
+  margin-left: 2em;
+
+  .active {
+    color: $grey-dark-mid;
+  }
+}
+
+a.main-nav-list-item-link {
+  border-radius: 2em;
+  padding: .5em 1em;
+
+  &:hover {
+    background-color: $grey-dark-lighter;
+  }
+}
+
+.main-header {
+  background-color: $grey-dark-mid;
+  box-shadow: 0px 4px 6px $grey-dark-mid;
+}
+
+.header-title {
+  color: $white;
+  font-family: $header-font;
+  font-feature-settings: "ss02";
+  font-size: 3.6em;
+  margin-bottom: 0;
+  text-shadow: 3px 3px 0px $grey-dark-lightest;
+  transform: scale(1.0);
+  transition: text-shadow 40ms, transform 400ms;
+}
+
+.header-title:hover {
+  cursor: pointer;
+  transition: text-shadow 40ms, transform $ui-transition;
+
+  // & .header-icon-wrapper {
+  //   transform: rotate(45deg) translateX(2rem);
+  //   transition: transform $ui-transition;
+  // }
+}
+
+.header-first-name, .header-last-name {
+  margin-right: .25em;
+}
+
+.header-first-name {
+  font-feature-settings: "ss06";
+  margin-right: .2em;
+}
+
+.header-last-name {
+  font-feature-settings: "ss04";
+}
+
+.header-icon-wrapper {
+  align-self: baseline;
+  display: inline-flex;
+  position: relative;
+  transform: translateY(.2em);
+  transition: transform 300ms ease-in;
+}
+
+.header-icon-wrapper svg {
+  display: inline;
+  font-size: .8em;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.header-icon-wrapper svg.header-icon-shadow {
+  top: 2px;
+  left: 2px;
+}
+
+.header-icon-color {
+  transform: scale(.7, .4) translateY(-.48em) translateX(-.1em);
+}
+
+.header-icon {
+  color: $white;
+  font-size: .6em;
+  transform: scale(1.0), rotate(0);
+  transition: transform 60ms;
+}
+
+.header-icon-wrapper.no-matches {
+  transform: rotate(-90deg) translateX(-1em);
+
+  .header-icon-color {
+    opacity: 0;
+  }
+
+  .header-icon-shadow {
+    display: none;
+  }
+}
+
+.header-icon-color {
+  color: $coffee-brown;
+  opacity: 1;
+  transition: opacity 250ms;
+}
+
+.header-icon-shadow {
+  color: $grey-dark-lightest;
+}
+
+.header-icon-steam {
+  animation: steam 24s infinite;
+  color: $white;
+}
+
+@keyframes steam {
+  0% {
+    filter: blur(3px);
+    opacity: 0;
+    transform: translate(-.05em, 0em) scale(.2) rotate(-90deg);
+  }
+  50% {
+    filter: blur(3px);
+    opacity: .04;
+    transform: translate(-.05em, -.7em) scale(.6) rotate(-90deg);
+  }
+  100% {
+    filter: blur(5px);
+    opacity: 0;
+    transform: translate(-.05em, -.9em) scale(.4) rotate(-90deg);
+  }
+}
+
+// ==========================
+//    MODEL CONTROLS STUFF
+// ==========================
+
+.model-controls {
+  $model-controls-transition: color $model-color-transition, transform 200ms, 
+    filter 300ms, opacity 100ms, background-color $ui-transition;
+
+  &.header-wrapper {
+    flex-direction: column;
+  }
+
+  font-size: 1.2em;
+  height: 58px;
+  justify-content: center;
+  position: relative;
+  top: 12px;
+  z-index: -1;
+
+  svg:not(.model-controls-search-clear) {
+    font-size: 1.6em;
+  }
+    
+  &, &.model-controls-hidden, 
+  .model-top-level-controls-hidden, .model-view-controls-hidden {    
+    filter: blur(5px);
+    // height: 0;
+    opacity: 0;
+    position: relative;
+    transform: translateY(-58px);
+    transition: $model-controls-transition;
+  }
+
+  .model-view-controls {
+    position: relative;
+    // TODO: Is this going to be too slow?
+    top: -44px;
+  }
+  
+  &.model-controls-active,
+  .model-top-level-controls-visible, .model-view-controls-visible {
+    filter: blur(0);
+    height: 58px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: $model-controls-transition;
+  }
+
+  & .model-tag.filter-match.filter-tag svg {
+    color: $grey-dark-mid;
+    fill: $grey-dark-mid;
+    stroke: $grey-dark-mid;
+    margin: 0;
+    margin-left: .5em;
+  }
+}
+
+.model-controls-button {
+  align-items: center;
+  display: inline-flex;
+  background-color: transparent;
+  border-radius: .2em;
+  margin-right: 1em;
+  padding: .2em .25em;
+  transition: background-color $ui-transition;
+  width: 1.5em;
+
+  &.no-margin {
+    margin-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover:not(.model-controls-button-active) {
+    background-color: $grey-dark-lighter;
+  }
+}
+
+.model-controls-button-active {
+  border-radius: .5em;
+}
+
+.model-controls-button svg {
+  font-size: 1.4em;
+}
+
+.model-controls-button.model-controls-dropdown.model-controls-dropdown-active {
+  // border-bottom-right-radius: 0;
+  // border-bottom-left-radius: 0;
+  // border-top-right-radius: 0;
+}
+
+.model-top-level-controls-right, .model-top-level-controls-left {
+  display: inline-flex;
+  // flex-direction: column;
+}
+
+.model-controls-input {
+  background-color: $grey-dark-lighter;
+  border-radius: 2em;
+  font-family: $mono-font;
+  font-size: 1.2rem;
+  padding: .6em 1em;
+  transition: $model-color-transition;
+  width: 10rem;
+}
+
+.model-controls-input-hidden {
+  cursor: default;
+  opacity: 0;
+  // visibility: hidden;
+}
+
+.model-controls-input-visible {
+  opacity: 1;
+  // visibility: visible;
+}
+
+.model-controls-dropdown-options {
+  color: $white;
+  font-size: 1.2rem;
+}
+
+@mixin mc-transitions {
+  transition: opacity $ui-transition, filter $ui-transition, transform $ui-transition;
+}
+
+.model-controls-sort-options, .model-controls-filter-options {
+  @include ui-shadow();
+  @include mc-transitions();
+
+  background: $grey-dark-lighter;
+  border-radius: .5em;
+  // border-top-left-radius: 0;
+  filter: blur(2px);
+  // left: 2.7rem;
+  opacity: 0;
+  // padding: .6rem 1rem;
+  padding: 0;
+  position: absolute;
+  top: 3.2rem;
+  // top: -.05rem;
+  transform: translateY(-2em) scale(.99);
+  user-select: none;
+  visibility: hidden;
+  z-index: -100;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    // border-radius: .2em;
+    // margin-bottom: .5em;
+    margin-bottom: 0;
+    padding: .85rem 1.3rem;
+  }
+
+  li:first-child {
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+  }
+
+  li:last-child {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+  }
+
+  li:hover, 
+  li.option-targetted:not(.model-controls-dropdown-options:hover .option-targetted) {
+    color: $grey-dark-mid;
+
+    svg {
+      fill: $grey-dark-mid;
+      stroke: $grey-dark-mid;
+    }
+  }
+
+  li:not(:last-child) {
+    // TODO: clean up this idea a bit. I want a dividing line, but I don't think 
+    // I want it rounded or flush with the li. Maybe not on this element?
+    border-bottom: 1px solid $grey-dark-lightest;
+    // margin-bottom: .5em;
+  }
+}
+
+.model-controls-dropdown-active + .model-controls-sort-options {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(1rem) scale(1);
+  visibility: visible;
+  z-index: 1;
+}
+
+.model-controls-filter, .model-controls-search {
+  // border-bottom: 4px solid transparent;
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  // padding-bottom: 6px;
+
+  & *:first-child {
+    // margin-right: 1em;
+  }
+}
+
+.model-controls-filter-input {
+  @include mc-transitions();
+
+  filter: blur(2px);
+  left: 5rem;
+  margin-right: .5rem;
+  opacity: 0;
+  position: absolute;
+  transform: translateX(0) scale(.99);
+  // width: 240px;
+  // visibility: hidden;
+  z-index: -100;
+}
+
+.model-controls-dropdown-active + .model-controls-filter-input {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateX(3em) scale(1);
+  visibility: visible;
+  z-index: 1;
+}
+
+.model-controls-dropdown-active + input + .model-controls-filter-options {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateX(4.2rem) scale(1);
+  top: 4.2rem;
+  visibility: visible;
+  z-index: 1;
+}
+
+.model-controls-filter-line-item {
+  //min-size to match model control size
+  min-width: 9.75rem;
+
+  &:not(svg) {
+    color: $white;
+  }
+
+  svg {
+    font-size: 1.2rem !important;
+    transition: fill $ui-transition stroke $ui-transition;
+
+    &:hover {
+      fill: $grey-darker;
+      stroke: $grey-darker;
+    }
+  }
+}
+
+.model-controls-filter-current-tags {
+  transform: translateX(0);
+  transition: transform $ui-transition;
+}
+
+// is this beauty or insanity?
+.model-controls-dropdown-active + input + 
+.model-controls-filter-options + .model-controls-filter-current-tags {
+  transform: translateX(12.85rem);
+}
+
+.model-controls-search-input-wrapper {
+  margin-right: 1rem;
+}
+
+.model-controls-search-input {
+  @include mc-transitions();
+
+  filter: blur(2px);
+  transform: translateX(2rem) scale(.99);
+  margin-right: -3em;
+  opacity: 0;
+  padding-right: 3em;
+  z-index: -100;
+}
+
+.model-controls-search-input.model-controls-search-input-active {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateX(-1.6rem) scale(1);
+  visibility: visible;
+  z-index: 1;
+}
+
+.model-controls-search-clear {
+  font-size: 1.6rem;
+  margin-left: 0em;
+  margin-right: 0em;
+  transition: color $model-color-transition, opacity $model-color-transition,
+    transform $ui-transition;
+  z-index: 2;
+
+  &.model-controls-search-clear-hidden {
+    opacity: 0;
+  }
+  
+  &.model-controls-search-clear-visible {
+    // font-size: 1.8rem;
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1);
+
+    &:hover {
+      // transform: scale(1.3);
+    }
+  }
+}
+
+.model-controls-label {
+  align-items: center;
+  display: flex;
+  margin-right: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.model-view-controls-back {
+  border-radius: .5em;
+  background-color: transparent;
+  // padding: .5em 1.4em .4em 1em;
+  padding: .2em .25em;
+  transition: background-color $ui-transition;
+
+  & svg {
+    margin-right: 0;
+  }
+}
+
+.model-view-controls-back:hover {
+  background-color: $grey-dark-lighter;
+  cursor: pointer;
+}
+
+.filter-tag:hover {
+  cursor: pointer;
+}
+
+// ===========================
+//    CONTENT WRAPPER STUFF
+// ===========================
+
+// the ID applied to the entire page, wrapping the contents of body
+#page-wrapper {
+  // padding-top: 2em;
+}
+
+
+.page-content-wrapper {
+  display: flex;
+  // prevents content from being cutoff during scale transform in transition
+  overflow: visible;
+
+  &:not(.about-page) {
+    /*
+      This is the fix for my transition woes - the containers that were being animated
+      in for certain models didn't have any computed height, as all of their children
+      were taken out of the flow for rendering. 
+
+      My solution is to use this magic number. 11 is the sum of of the padding and
+      margin applied to the main content container.
+    */
+    min-height: calc(100vh - 11em);
+  }
+
+  // most content fonts
+  p, ul {
+    font-size: 1.5rem;
+  }
+
+  code {
+    font-size: 1.3rem;
+  }
+}
+
+.header-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+
+  &.model-top-level-controls {
+    margin: 0 auto;
+    // width: 90%;
+  }
+}
+
+
+// =======================
+//    BASIC TAG STYLING
+// =======================
+
+
+// input Stuff
+button:not(.glide__bullet) {
+  border: 0;
+  border-radius: $common-border-radius;
+  color: $blue;
+  cursor: pointer;
+  font-family: $main-font;
+  font-size: 1.2em;
+  font-weight: bold;
+  // padding: .5em 1em;
+  padding: .5em;
+  transition: /*.15s transform,*/ .15s background-color, .15s filter;
+
+  &:hover {
+    filter: brightness(1.05);
+    // transform: scale(1.01);
+  }
+
+  &:active {
+    filter: brightness(.95);
+    // transform: scale(.99);
+  }
+}
+
+input {
+  border: 0;
+  border-radius: $common-border-radius;
+  outline: none;
+  padding: .5em 1em;
+
+  &:not(.model-controls-filter-input, .model-controls-search-input) {
+    font-family: $main-font;
+    font-size: 1.2em;
+  }
+}
+
+label {
+  font-weight: bold;
+}
+
+input:disabled, label.disabled {
+  opacity: 30%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+  // font-family: $mono-font;
+  font-weight: bold;
+}
+
+// hide number input spinners
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input#row-limit {
+  width: 3em;
+  text-align: right;
+}
+
+.page-content-wrapper a {
+  transition: background-color 100ms, margin 100ms, padding 100ms;
+
+  &:hover {
+    background-color: $grey-dark-lightest;
+    margin: -.2em;
+    padding: .2em;
+  }
+}
+
+
+// this should be modified in the responsive queries
+.content-wrapper {
+  /*
+    Some widths to target: 480px, 768px, 900px, 1024, 1200px
+  */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// main content - TODO: Rewrite this to use the media queries
+.content-wrapper {
+  transition: $dark-transition;
+  width: $content-wrapper-large-width;
+}
+
+// =============================
+//    VARIOUS COMPONENT STUFF   
+// =============================
+
+// main page stylings
+
+// extra margin for static pages
+.page-wrapper.static-page {
+  margin-top: 4rem;
+}
+
+#main-content-wrapper {
+  margin-top: 7rem;
+
+  h6, h5, h4, h3, h2, h1 {
+    text-shadow: 2px 2px 0px $grey-dark-lightest;
+  }
+
+  p, pre {
+    line-height: 2em;
+    margin-bottom: 2em;
+  }
+
+  & p > code, li > code {
+    background-color: $grey-dark-lighter;
+    border-radius: $common-border-radius;
+    color: $blue;
+    padding: .25em;
+  }
+
+  pre {
+    background-color: $grey-dark-lighter;
+    border-radius: 16px;
+    font-size: .8em;
+    margin-left: 2%;
+    padding: 1em;
+    width: 90%;
+  }
+
+  li:not(:last-child) {
+    margin-bottom: .5em;
+  }
+
+  .blog-page, .portfolio-page {
+    padding-top: 5em;
+  }
+}
+
+img[alt] {
+  color: $blue;
+  font-family: "JetBrains Mono";
+  font-size: 1.0rem;
+  text-align: center;
+}
+
+// maybe share some with ModelTag?
+.pretty-date, .model-tag {
+  background-color: $grey-dark-lighter;
+  // border-radius: $common-border-radius;
+  border: 2px solid transparent;
+  border-radius: 2em;
+  font-size: 1.0rem;
+  // font-weight: bold;
+  padding: .4em 1em;
+  transition: color $model-color-transition, background-color $model-color-transition;
+}
+
+.model-tag.filter-match svg {
+  color: $grey-dark-mid;
+}
+
+.model-tag.filter-match.filter-tag {
+  margin-right: .5rem;
+  padding-right: .5rem;
+}
+
+.pretty-date-value {
+  font-weight: bold;
+}
+
+// ===========================
+//    ABOUT COMPONENT STUFF
+// ===========================
+
+.about-page.page-content-wrapper {
+  align-items: center;
+  font-size: 1.2em;
+  padding-top: 4em;
+  justify-content: space-around;
+}
+
+.about-text {
+  line-height: 2.8em;
+  max-width: 50%;
+
+  p {
+    line-height: 2em;
+  }
+}
+
+.about-image {
+  border-radius: 256px;
+  box-shadow: 0px 5px 3px $grey-darker;
+  max-width: 320px;
+  transition: all 200ms;
+  transform: none;
+
+  &:hover {
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0px 6px 12px $grey-darker;
+  }
+}
+
+// =============================
+//    WARNING MESSAGE STYLING
+// =============================
+
+.warning-message {
+  font-size: 1.4em;
+  margin: 0 auto;
+  padding-top: 6em;
+  // TODO: Scale responsively
+  width: 60%;
+}
+
+// ===================================================
+//    STUB STYLING (SHARED WITH BLOG AND PORTFOLIO)
+// ===================================================
+
+.entry-stub {
+  border-radius: 24px;
+  padding: 2em;
+  transition: background $ui-transition;
+
+  &:hover {
+    background: $grey-dark-lighter;
+    cursor: pointer;
+
+    .model-tag:not(.model-tag.filter-match), .pretty-date {
+      background-color: $grey-dark-mid;
+    }
+  }
+
+  h1 {
+    font-size: 3.4em;
+    line-height: .8em;
+    margin-bottom: 0;
+  }
+}
+
+// ==========================
+//    SHARED MODEL STYLING
+// ==========================
+
+.model-body {
+  font-size: 1.1rem;
+  padding: 2em .5em;
+  width: 100%;
+
+  h1 { font-size: 3.2rem; }
+  h2 { font-size: 2.6rem; }
+  h3 { font-size: 2.0rem; }
+  h4 { font-size: 1.8rem; }
+  h5 { font-size: 1.8rem; }
+  h6 { font-size: 1.8rem; }
+
+  ol, ul {
+    line-height: 2em;
+    margin-left: 1.5em;
+    margin-bottom: 2em;
+    padding-right: 4em;
+  }
+
+  ul {
+    list-style-type: none;
+
+    li::before {
+      font-size: 1.5em;
+      content: "\27BC";
+      margin-left: -1.5em;
+      filter: opacity(.5);
+    }
+  }
+
+  ol {
+    list-style: none;
+    counter-reset: list-counter;
+
+    li::before {
+      font-family: $header-font;
+      font-size: 1.6em;
+      content: counter(list-counter) ". ";
+    }
+  }
+
+  li {
+    counter-increment: list-counter;
+    padding-right: 4em;
+
+    ul li::before, ol li::before {
+      // this should be for nested lists
+      filter: grayscale(1) opacity(.5);
+    }
+  }
+
+  li::before {
+    display: inline-block;
+    width: 1.5em;
+  }
+}
+
+.model-title {
+  font-size: 4em;
+}
+
+// ==========================
+//    BLOG COMPONENT STUFF
+// ==========================
+
+$blog-title-size: 2.4rem; 
+
+.post-stub > a {
+  //color: inherit;
+  text-decoration: none;
+}
+
+.post-stub {
+    .blog-post {
+    transition: background-color 150ms;
+
+    &:active, &:hover {
+      background-color: $grey-dark-lighter;
+    }
+  }
+}
+
+.post-stubs-wrapper {
+  width: 100%;
+}
+
+.post-content, .post-body, .selected-post, .page-content-wrapper { 
+  width: 100%;
+}
+
+.selected-post {
+  margin-top: 1em;
+}
+
+
+// ===============================
+//    PORTFOLIO COMPONENT STUFF
+// ===============================
+
+// TODO: Probably revise how I handle this
+.portfolio-page.page-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-top: 1em;
+  //padding: 2em;
+
+
+  h1 {
+    margin: 0;
+    z-index: 1;
+  }
+
+  .project-card {
+    display: flex;
+    margin-bottom: 1em;
+    overflow-y: hidden;
+    transition: all 400ms;
+
+    .project-card-image-wrapper {
+      align-self: center;
+      border-radius: .2em;
+      box-shadow: 4px 4px 0px $grey-dark-lighter;
+      filter: blur(0px);
+      height: 192px;
+      overflow: hidden;
+      margin-right: 1em;      
+      // max-width: 128px;
+
+      img {
+        // border-radius: 100%;
+        // border-radius: .5rem;
+        object-fit: cover;
+        height: 192px;
+        width: 192px;
+      }
+    }
+
+    .project-card-content {
+      flex: 1 !important;
+      margin-right: 1em;
+    }
+
+    &.project-card-hidden {
+      filter: blur(5px);
+      height: 0;
+      opacity: .1;
+      position: relative;
+    }
+  }
+
+  .project-filters {
+    margin-bottom: 1em;
+  }
+
+  .project-tech-filter {
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+}
+
+.model-tag {
+  align-items: center;
+  display: inline-flex;
+}
+
+.model-tag svg {
+  font-size: 1.4em;
+}
+
+.model-tag svg:first-child {
+  margin-right: .5em;
+}
+
+.model-tag svg:last-tag {
+  margin-left: .5em;
+}
+
+.model-tag.filter-match {
+  
+}
+
+.project-card-meta-description {
+  padding: 1em .5em;
+}
+
+.project-card-meta, .post-meta {
+  line-height: 1.6em;
+
+  .pretty-date {
+    // background-color: $grey-dark-lighter;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+  }
+
+  .project-card-meta-techs {
+    margin: 1em 0 1em -.5em;
+  }
+}
+
+.project-meta-tech, .project-tech-filter, .post-meta-category {
+  // background-color: $grey-dark-lighter;
+  // border-radius: 2em;
+  // color: $blue;
+  font-size: .8em;
+  // font-weight: bold;
+  margin-right: .5em;
+  // padding: .5em;
+  transition: all 200ms;
+}
+
+.model-tag-container {
+  margin: 1em;
+  margin-left: 0;
+}
+
+//  ======================
+//     TRANSITION STUFF
+//  ======================
+
+$ct-duration: 300ms;
+$css-transition: opacity $ct-duration, filter $ct-duration, transform $ct-duration;
+
+// page transitions
+.page-enter, .page-appear, 
+.post-enter, .post-appear, 
+.project-enter, .project-appear,
+.model-enter, .model-appear {
+  filter: blur(5px);
+  opacity: 0;
+  position: fixed;
+  transform: scale(1.02);
+  
+  &:not(.about-page) {
+    min-height: 100vh;
+  }
+
+  // TODO: Override these in media queries
+  // width: 1200px;
+  z-index: 1;
+}
+
+.page-enter-active, .page-appear-active, 
+.post-enter-active, .post-appear-active, 
+.project-enter-active, .project-appear-active,
+.model-enter-active, .model-appear-active {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1.0);
+  transition: $css-transition;
+}
+
+.page-enter-done, .page-appear-done, .page-exit,
+.post-enter-done, .post-appear-done, .post-exit,
+.project-enter-done, .project-appear-done, .project-exit,
+.model-enter-done, .model-appear-done, .model-exit {
+  filter: blur(0);
+  opacity: 1;
+  position: relative;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.page-exit, .post-exit, .project-exit, .model-exit {
+  position: fixed;
+  
+  &:not(.about-page) {
+    min-height: 100vh;
+  }
+
+  // TODO: Override these in media queries
+  // width: 1200px;
+  z-index: 0;
+}
+
+.page-exit-done, .post-exit-done, .project-exit-done, .model-exit-done {
+  filter: blur(5px);
+  opacity: 0;
+  transform: scale(.98);
+  z-index: 0;
+}
+
+.page-exit-active, .post-exit-active, .project-exit-active, .model-exit-active {
+  filter: blur(5px);
+  opacity: 0;
+  position: fixed;
+  transform: scale(.98);
+  transition: $css-transition;
+  z-index: 0;
+}
+
+// footer stuff
+footer {
+  align-items: center;
+  display: flex;
+  font-family: $main-font;
+  font-weight: bold;
+  justify-content: center;
+  margin-top: auto;
+  text-align: center;
+  height: 20vh;
+  width: 100%;
+}
+
+table {
+  background-color: $grey-dark-lighter;
+  border-radius: $common-border-radius;
+  border-spacing: 0;
+  padding: 1.0em 0;
+  table-layout: fixed;
+  width: 100%;
+
+  tr {
+    transition: .2s opacity;
+  }
+
+  tr.removing {
+    opacity: 0;
+  }  
+
+  th, td {
+    border: 0;
+    width: 40%;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  th, td:first-child {
+    color: $blue;
+  }
+
+  td:first-child:not(.no-restricted-width), 
+  th:first-child:not(.no-restricted-width),
+  td:last-child, 
+  th:last-child {
+    font-weight: bold;
+    text-align: center;
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: .5em;
+  }
+
+  tbody tr:hover {
+    background-color: $grey-dark-mid;
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// =========================================================
+//                      ADMIN PANEL STUFF
+// =========================================================
+
+.rotate {
+  animation: rotation 32s infinite linear;
+}
+
+.loading-rotate {
+  // maybe an ease-in type thing instead of linear?
+  animation: rotation 1.5s infinite linear, 
+    fade .5s infinite alternate-reverse;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: .2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cursor-blink {
+  from {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+$admin-top-gap: 48px;
+
+// Transition Mixins
+@mixin common-blur-appear {
+  filter: blur(1px);
+  opacity: 0;
+  transform: scale(.99);
+  transition: all 150ms;
+
+  &.active {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Color Mixins
+@mixin form-theme($color) {
+  h1, h2, h3, h4, h5, h6, label {
+    color: $color;
+  }
+
+  ::selection {
+    background: $color;
+    color: $grey-dark-mid;
+  }
+
+  button, .post-category, .project-technology, .admin-tag {
+    background-color: $grey-dark-lighter;
+    border-radius: $common-border-radius;
+    color: $color;
+    font-weight: bold;
+    padding: .5em 1em;
+    margin-right: .5em;
+
+    a {
+      color: $color;
+    }
+  }
+
+  button:hover:enabled {
+    border: 2px solid $color;
+  }
+
+  input, .ace_editor {
+    border: 2px solid transparent;
+    transition: border 100ms;
+
+    &:hover {
+      border: 2px solid $grey-dark-lightest;
+    }
+  }
+
+  .admin-tag:hover, .admin-tag.tag-exists {
+    border: 2px solid $color;
+  }
+
+  // TODO: Keep cursor white or match color?
+  // .admin-tag-add, .admin-tag-cursor {
+  .admin-tag-add, .admin-tag-text, .admin-tag-autocomplete {
+    color: $color;
+  }
+
+  input:focus, .ace_focus {
+    border: 2px solid $color;
+  }
+
+  .admin-checkbox-wrapper > 
+  .admin-checkbox:checked + .admin-styled-checkbox,
+  .admin-tooltip > .admin-tooltip-text,
+  .admin-table-delete-cell.armed {
+    background: $color;
+  }
+
+  .admin-checkbox-wrapper:hover > .admin-styled-checkbox,
+  .admin-checkbox:focus + .admin-styled-checkbox {
+    border: 2px solid $color;
+  }
+
+  .empty-requirement:not(label), .empty-requirement:hover:not(label) {
+    border: 2px solid $color;
+  }
+
+  .admin-form-controls, .admin-model-controls {
+    border-bottom: 2px solid $color;
+  }
+
+  // .admin-back-button-confirm, .admin-submit-button-warning {
+  .admin-form-controls-log {
+    color: $color;
+  }
+
+  .admin-search-bar-wrapper svg, .admin-input-text-clear svg {
+    color: $color;
+  }
+
+  .admin-search-bar-wrapper:hover > .admin-search-bar {
+    border: 2px solid $color;
+  }
+
+  .search-highlight, .required-warning {
+    color: $color;
+  }
+
+  .admin-table tr th, table td:first-child:not(.no-color), 
+  .data-length, .admin-table-delete-cell:not(.armed) {
+    color: $color;
+  }
+
+  .admin-table-visible-cell {
+    color: $color;
+  }
+
+  .admin-table-edit-link:hover {
+    color: $color;
+  }
+}
+
+#page-wrapper > .admin-panel {
+  font-family: $main-font;
+}
+
+// Transition Stuff
+.admin-page-enter, .admin-page-appear {
+  // filter: blur(15px);
+  max-width: 948px;
+  opacity: 0;
+  position: fixed;
+  transform: translateX(-50px);
+  // should i put position: fixed here? and set a width?
+}
+
+.admin-page-enter-active, .admin-page-appear-active {
+  // filter: blur(0);
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms;
+}
+
+.admin-page-enter-done, .admin-page-appear-done, .admin-page-exit {
+  opacity: 1;
+  //transform: translateX(0);
+}
+
+.admin-page-exit-done {
+  // filter: blur(50px);
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.centered-content-with-icon, .centered-content-with-icon-inline {
+  align-items: center;
+  display: flex;
+  //justify-content: space-between;
+
+  &.admin-button {
+    display: inline-flex;
+  }
+
+  // I think :not() selectors can now be comma-separated but I'm not 100% certain
+  svg:not(.model-controls-button svg):not(.admin-form-button svg) {
+    margin-right: .5em;
+  }
+
+  &.left-margin svg {
+    margin-right: 0em;
+    margin-left: .5em;
+  }
+}
+
+.centered-content-with-icon-inline {
+  display: inline-flex;
+}
+
+.admin-dashboard {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+}
+
+.admin-card {
+  background-color: $grey-dark-lighter;
+  border-radius: $common-border-radius;
+  //border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  min-width: 200px;
+  padding: 2em 2em;
+  text-align: center;
+  transition: all 150ms;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+}
+
+.admin-card-count {
+  display: inline-flex;
+}
+
+.admin-card-icon {
+  font-size: 5em;
+}
+
+@mixin card-theme($color){
+  border-top: 10px solid $color;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+
+  svg, h1, .admin-card-color {
+    color: $color !important;
+  }
+
+  // &:hover {
+  //   border: 2px solid $color;
+  // }
+}
+
+.page-card {
+  @include card-theme($red);
+}
+
+.post-card {
+  @include card-theme($green);
+}
+
+.admin-card.project-card {
+  @include card-theme($blue);
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.admin-controls {
+  display: inline-flex;
+}
+
+.admin-table-edit-link {
+  color: $white;
+  display: inline-block;
+  height: 100%;
+  //font-weight: bold;
+  text-decoration: none;
+  width: 100%;
+}
+
+label + svg.required-warning {
+  display: block;
+  font-size: 1.6em;
+  margin-left: -1.5em;
+  opacity: 0;
+  padding-top: .5em;
+  position: absolute;
+  transition: all 200ms;
+  //transform: translateX(10px);
+  visibility: hidden;
+}
+
+label.empty-requirement + svg.required-warning {
+  opacity: 1;
+  // transform: translateX(0);
+  visibility: visible;
+}
+
+.admin-button {
+  &:disabled {
+    cursor: default;
+    opacity: 30%;
+
+    &:hover {
+      border: 2px solid transparent;
+    }
+  }
+}
+
+.admin-search-bar-wrapper {
+  cursor: pointer;
+  position: relative;
+
+  svg:not(.admin-search-bar-clear svg) {
+    margin-left: 1em;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+.admin-search-bar {
+  cursor: pointer;
+  font-family: $main-font !important;
+  font-weight: bold;
+  padding: .5em 1em;
+  transition: width 150ms;
+  width: .25em;
+
+  &:focus, &.has-term {
+    padding-left: 2em;
+    width: 12em;
+  }
+}
+
+.admin-search-bar-clear {
+  display: inline-flex;
+  margin-left: .25em;
+  opacity: 0;
+  font-size: 1.4em;
+  transition: all 200ms;
+  visibility: hidden;
+
+  &.clear-armed {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.admin-tag, .admin-tag-input-wrapper, .admin-tag-add {
+  margin-top: .5em;
+}
+
+.admin-tag-label {
+  font-size: 1.1em;
+}
+
+.admin-tag, .admin-tag a {
+  align-items: center;
+  display: inline-flex;
+
+  span.admin-tag-delete > svg {
+    margin-left: .5em;
+    transition: 100ms transform;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.admin-tag-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 3em;
+
+  // TODO: REMOVE, DEBUG STYLING
+  code {
+    font-weight: bold;
+    color: $blue;
+  }
+}
+
+.admin-tag-input-wrapper {
+  cursor: text;
+  display: none;
+  filter: blur(1px);
+  opacity: 0;
+  transition: opacity 150ms, filter 150ms;
+  transform: scale(0);
+  visibility: hidden;
+  white-space: nowrap;
+
+  &.admin-tag-input-wrapper-active {
+    display: inline;
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+}
+
+.admin-tag-input-styled {
+  background: $grey-dark-lighter;
+  border: 2px solid transparent;
+  border-radius: $common-border-radius;
+  display: inline-flex;
+  // margin-left: -2.4em;
+  min-height: 1.2em;
+  padding: .5em 1em;
+  position: relative;
+}
+
+.admin-tag-text {
+  font-weight: bold;
+}
+
+.admin-tag-cursor {
+  animation: cursor-blink infinite 1s;
+  margin: 0 -1px;
+}
+
+.admin-tag-autocomplete {
+  opacity: .33;
+}
+
+.admin-tag-input {
+  margin-left: -3px;
+  // margin-left: -8px;
+  // margin: 0;
+  opacity: 0;
+  padding: 0;
+  //visibility: hidden;
+  width: 0px;
+}
+
+.admin-tag-add {
+  cursor: pointer;
+  display: inline-flex;
+  filter: none;
+  font-size: 1.4em;
+  opacity: 1;
+  position: relative;
+  padding-left: .25em;
+  transition: filter 150ms, transform 100ms, opacity 50ms;
+  visibility: visible;
+
+  &:hover {
+    filter: brightness(1.05);
+    // transform: scale(1.1);
+  }
+
+  &:active {
+    filter: brightness(.85);
+    transform: scale(.975);
+  }
+
+  &.add-hidden {
+    filter: blur(1px);
+    opacity: 0;
+    padding: 0;
+    // position: relative
+    visibility: hidden;
+    width: 0px;
+  }
+}
+
+.admin-tag-delete {
+  cursor: pointer;
+  display: inline-flex;
+  transition: all 30ms;
+
+  &:focus {
+    // color: white;
+    outline: 0;
+    transform: scale(1.2);
+  }
+}
+
+.admin-top-border {
+  background-color: $grey-light-dark;
+  position: fixed;
+  height: 24px;
+  transition: background-color 500ms;
+  width: 100%;
+  z-index: 10;
+
+  &.page-border {
+    background-color: $red;
+  }
+
+  &.post-border {
+    background-color: $green;
+  }
+
+  &.project-border {
+    background-color: $blue;
+  }
+
+  &.home-border {
+    background-color: $grey-light-dark;
+  }
+}
+
+.admin-tag {
+  border: 2px solid transparent;
+  transition: 200ms all;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+table th.no-color, table td.no-color:first-child { 
+  color: $white;
+}
+
+.admin-panel {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+
+  h1, h2, h3, h4, h5 {
+    font-family: $main-font;
+  }
+
+  .admin-panel-content-wrapper {
+    border-top: 24px solid transparent;
+    padding: 2em;
+    padding-top: $admin-top-gap;
+    max-width: 948px;
+    width: 100%;
+    transition: all 500ms;
+
+    // TODO: Remove the double style definitions - admin-*-form should be redundant
+    .admin-page-form, .admin-panel-pages {
+      @include form-theme($red);
+    }
+
+    .admin-post-form, .admin-panel-posts {
+      @include form-theme($green);
+    }
+
+    .admin-project-form, .admin-panel-projects {
+      @include form-theme($blue);
+    }
+
+    form {
+      input:not(.admin-tag-input) {
+        min-width: 24em;
+      }
+    }
+  }
+
+  label:not(.admin-search-bar-wrapper, .admin-checkbox-wrapper, 
+    .admin-input-text-label, .admin-editor-label, .admin-tag-label) {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: .5em;
+    // text-decoration: underline;
+
+    &.admin-editor-label {
+      display: inline-flex;
+      margin-left: 0em;
+      // margin-bottom: 0;
+
+      svg {
+        margin-left: .5em;
+      }
+    }
+
+    &.-checkbox-wrapper.no-margin {
+      margin-left: 0em;
+    }
+  }
+
+  button {
+    border: 2px solid transparent;
+    color: $grey-dark-mid;
+    transition: all 100ms;
+
+    &:hover, &:active {
+      transform: none;
+    }
+  }
+
+  input {
+    background-color: $grey-dark-lighter;
+    font-family: $main-font;
+  }
+
+
+  // set border radius for AceEditor components
+  #page-body, #post-body, #project-description {
+    border-radius: $common-border-radius;
+    // kinda ugly, but this is where the 80 char mark is with 18px font size.
+    max-width: 940px;
+    width: 100%;
+  }
+}
+
+.admin-panel-sidebar {
+  font-size: 1.2em;
+  min-height: 100vh;
+  min-width: 12em;
+  padding-top: 24px;
+
+  .sidebar-header {
+    color: $grey-light-dark;
+    font-size: 1.6em;
+    transition: all 100ms;
+
+    &:hover {
+      text-shadow: -2px 2px 0px $grey-dark-lightest;
+    }
+
+    &.centered-content-with-icon svg {
+      font-size: 2.0em;
+      margin-right: .25em;
+    }
+  }
+
+  .admin-panel-sidebar-content-wrapper {
+    margin: 24px;
+    margin-top: 48px;
+    max-width: 8em;
+    position: fixed;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  a {
+    color: $blue;
+
+    &.sidebar-link {
+      border-radius: $common-border-radius;
+      font-weight: bold;
+      padding: .5em 1em;
+      text-decoration: none;
+      transition: background 250ms;
+
+      &:hover, &.sidebar-link-active {
+        background-color: $grey-dark-mid;
+      }
+    }
+
+    &.pages-link {
+      color: $red;
+    }
+
+    &.posts-link {
+      color: $green;
+    }
+
+    &.sidebar-exit-link {
+      color: $orange;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 1em;
+    padding-left: 2em;
+    
+    li {
+      margin-bottom: .5em;
+      margin-left: -1.0em;
+      margin-right: -3em;
+    }
+  }
+}
+
+.admin-form-controls, .admin-model-controls {
+  box-shadow: 0px 8px 8px $grey-dark-mid;
+  background-color: $grey-dark-mid;
+  border-bottom: 2px solid transparent;
+  //kind of a little hack to hide the bits underneath as this scrolls
+  margin-top: -100px;
+  max-width: 948px;
+  padding-top: 100px;
+  // padding-left: 48px;
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+
+  .admin-form-button {
+    //padding: inherit .5em;
+
+    svg {
+      margin: 0;
+    }
+  }
+}
+
+// hides a portion of the gutter between the sidebar and form view
+// where empty-requirement icons might be displayed
+.admin-form-visibility-hack {
+  box-shadow: 0px 10px 15px $grey-dark-mid;
+  background: $grey-dark-mid;
+  height: 119px;
+  margin-left: -48px;
+  // margin-top: -84px;
+  position: fixed;
+  width: 100px;
+  z-index: 1;
+}
+
+.admin-form, .admin-table-wrapper {
+  padding-top: 10em;
+}
+
+.admin-tooltip {
+  /*
+    TODO: Hovering over where the tooltip will eventually be shouldn't
+    cause the tooltip to appea.r
+  */
+  cursor: help;
+  max-width: 240px;
+  position: relative;
+  //text-align: center;
+  text-decoration: dotted;
+
+
+
+  $x-offset: 3px;
+
+  svg {
+    transform: scale(1.2) translateX($x-offset);
+    transition: all 100ms ease-in-out;
+  }
+
+  &:hover svg {
+    transform: scale(1.2) translateX($x-offset) translateY(-2px);
+  }
+
+  .admin-tooltip-text {
+    background: $white;
+    border-radius: $common-border-radius;
+    box-shadow: 1px 1px 0px $grey-darker;
+    bottom: 115%;
+    display: inline;
+    color: $grey-dark-mid;
+    filter: blur(1px);
+    font-size: .4em;
+    left: 0;
+    // strange hack to make the tooltip wider
+    margin-left: -48px;
+    margin-right: -48px;
+    opacity: 0%;
+    padding: 1.07em;
+    position: absolute;
+    transform: scale(.99) translateY(3px);
+    transition: all 200ms ease-in-out, filter 100ms ease-in-out;
+    visibility: hidden;
+    white-space: normal !important;
+    z-index: 11;
+
+    svg {
+      color: $red;
+      font-size: 4.0em;
+      left: 35%;
+      position: absolute;
+    }
+  }
+
+  &:hover .admin-tooltip-text {
+    filter: blur(0);
+    opacity: 100%;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+  }
+}
+
+.admin-input-text-label, .admin-editor-label {
+  font-size: 1.1em;
+  margin-bottom: .5em;
+}
+
+.admin-input-text-label svg {
+  font-size: .9em;
+  margin-left: .5em;
+}
+
+.admin-input-and-clear-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.admin-input-text-clear {
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 1.6em;
+  filter: blur(1px);
+  padding: 0 .5em;
+  opacity: 0;
+  position: relative;
+  transform: translateX(-.35em) scale(.99);
+  transition: all 150ms;
+
+  &.clear-active {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.admin-table {
+  font-size: 1.2em;
+
+  .centered-cell, .centered-cell {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    // width: max-content;
+  }
+
+  .admin-checkbox-wrapper {
+    margin: 0 auto;
+    width: max-content;
+  }
+
+  .admin-checkbox-wrapper .admin-styled-checkbox {
+    background: $grey-dark-mid;
+    
+    svg {
+      color: $grey-dark-mid;
+    }
+  }
+
+  tbody tr:hover {
+    background: $grey-darker;
+  }
+  
+  tr td:first-child, tr th:first-child {
+    max-width: max-content;
+    padding-left: 1.5em;
+    text-align: left;
+  }
+
+  tr {
+    border-left: 4px solid transparent;
+  }
+
+  .admin-table-small-cell, .centered-cell {
+    // this is kind of gross
+    //max-width: 24px;
+    width: 5%;
+  }
+}
+
+.admin-table-delete-cell {
+  background: transparent;
+  color: $red;
+  position: relative;
+  transition: all 200ms;
+
+  &.armed {
+    //background-color: $red;
+    color: $white;
+  }
+
+  &:hover {
+    padding-left: 2em;
+
+    & .admin-table-delete-cell-lock {
+      opacity: .8;
+      visibility: visible;
+    }
+  }
+}
+
+.admin-table-delete-cell-lock {
+  // this will be super similar to the tooltip
+  font-size: .9em;
+  left: 1em;
+  opacity: 0;
+  position: absolute;
+  transition: all 200ms;
+  visibility: hidden;
+}
+
+.admin-table-visible-cell {
+  opacity: .5;
+  text-align: center;
+  transition: all 200ms, transform 50ms;
+
+  &.active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.admin-table-delete-cell, .admin-table-visible-cell {
+  font-size: 1.4em;
+}
+
+.admin-table-visible-cell-untoggled {
+  opacity: .3;
+}
+
+.admin-checkbox-wrapper {
+  align-items: center;
+  display: flex;
+  margin-left: 0;
+  width: max-content;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  // the hidden checkbox defined by the input tag
+  .admin-checkbox {
+    border: 0;
+    clip: rect(0,0,0,0);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  // the styled div that represents the state of the hidden checkbox
+  .admin-styled-checkbox {
+    // ugly temp
+    align-items: center;
+    background: $grey-dark-lighter;
+    border: 2px solid transparent;
+    border-radius: $common-border-radius;
+    display: inline-flex;
+    height: 22px;
+    justify-content: center;
+    margin-right: .75em;
+    transition: all 75ms ease-out;
+    width: 22px;
+
+    svg {
+      color: $grey-dark-lighter;
+      font-size: 1.2em;
+      transition: all 150ms;
+    }
+  }
+
+  // the checked state of the styled checkbox
+  .admin-checkbox:checked + .admin-styled-checkbox {
+    // ugly temp
+    background: blue;
+  }
+}
+
+.admin-checkbox:checked:focus + .admin-styled-checkbox {
+  border: 2px solid $grey-dark-lighter;
+}
+
+.admin-form-controls-log, .admin-back-button-confirm, .admin-submit-button-warning,
+.admin-search-error {
+  display: inline-flex;
+  filter: blur(1px);
+  font-size: 1.2em;
+  opacity: 0;
+  padding-left: 1em;
+  transition: all 120ms ease-out;
+  transform: scale(.99) translateX(-1.5em);
+  visibility: hidden;
+
+  svg {
+    margin-right: .5em;
+  }
+
+  &.log-active, &.search-error-active {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    visibility: visible;
+  }
+}
+
+.data-length {
+  font-weight: bold;
+  text-align: right;
+}
+
+.admin-loading-animation {
+  align-items: center;
+  color: $grey-light-dark;
+  display: flex;
+  font-size: 16em;
+  justify-content: center;
+  min-height: 80vh;
+  transform: color 500ms;
+  width: 100%;
+
+  &.page {
+    color: $red;
+  }
+
+  &.post {
+    color: $green;
+  }
+
+  &.project {
+    color: $blue;
+  }
+}
+
+
+// ======================
+//    RESPONSIVE STUFF
+// ======================
+
+
+// phones
+@media only screen {
+  #page-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    // width: 100%;
+    width: $content-wrapper-phone-width;
+    
+    .header-wrapper {
+      flex-direction: row;
+      width: 100%;
+    }
+  }
+
+  .content-wrapper{
+    width: $content-wrapper-phone-width;
+    transition: width $ui-transition;
+  }
+
+  .page-enter, .page-appear, .page-exit,
+  .post-enter, .post-appear, .post-exit, 
+  .project-enter, .project-appear, .project-exit, 
+  .model-enter, .model-appear, .model-exit {
+    width: $content-wrapper-phone-width;
+  }
+
+  header, #main-content-wrapper {
+    // padding-left: 1em;
+  }
+}
+
+
+// tablets - is this a good approach with the max-bounded media query?
+@media only screen and (min-width: 43em) and (max-width: 62em) {
+  header {
+    align-self: center;
+    position: static;
+
+    .header-wrapper {
+      align-items: center;
+      // flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .content-wrapper, header{
+    margin: 0 auto;
+    width: $content-wrapper-tablet-width;
+  }
+
+  #page-wrapper {
+    // align-items: center;
+  }
+
+  .page-enter, .page-appear, .page-exit,
+  .post-enter, .post-appear, .post-exit, 
+  .project-enter, .project-appear, .project-exit, 
+  .model-enter, .model-appear, .model-exit {
+    width: $content-wrapper-tablet-width;
+  }
+}
+
+// smaller screens
+@media only screen and (min-width: 62em) {
+  header.header-scrolled-up {
+    padding-bottom: 0;
+
+    .header-title {
+      font-size: 3.6em;
+    }
+  }
+
+  header.header-scrolled-down,
+  div.static-page header {
+    padding-top: 1.0em;
+    padding-bottom: .5em;
+
+    .header-title {
+      font-size: 2.8em;
+    }
+
+    .model-controls:not(*:hover ~ .model-controls, .model-controls:hover, .model-controls.hide-lock) {
+      height: 0;
+      opacity: 0;
+      transform: translateY(-64px);
+    }
+  }
+
+  #page-wrapper {
+    align-items: baseline;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .content-wrapper, header{
+    width: $content-wrapper-small-width;
+    // width: calc(100vw - 100%);
+  }
+
+  .page-enter, .page-appear, .page-exit,
+  .post-enter, .post-appear, .post-exit, 
+  .project-enter, .project-appear, .project-exit, 
+  .model-enter, .model-appear, .model-exit {
+    width: $content-wrapper-small-width;
+  }
+
+  footer { 
+    display: none;
+  }
+}
+
+// larger screens
+@media only screen and (min-width: 82em) {
+  #page-wrapper {
+    justify-content: center;
+  }
+
+  .content-wrapper, header{
+    width: $content-wrapper-large-width;
+  }
+
+  .page-enter, .page-appear, .page-exit,
+  .post-enter, .post-appear, .post-exit, 
+  .project-enter, .project-appear, .project-exit, 
+  .model-enter, .model-appear, .model-exit {
+    width: $content-wrapper-large-width;
+  }
+}

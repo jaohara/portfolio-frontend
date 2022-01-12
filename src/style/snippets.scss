@@ -1,0 +1,82 @@
+/*
+  snippets.scss - things pulled form style.scss on 11/12/2021 for the redesign. 
+
+  Preserved here in case things go completely sideways.
+*/
+
+// ============================
+//  MYSQL DEMO RELATED STUFF
+// ============================
+
+/*
+  Probably all junk? Most of these were just to learn from
+*/
+.demo-add form, .demo-search form {
+
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  p:first-child {
+    width: 80%;
+  }
+
+  /*
+    I had these differ for a focus-effect but I'm not sure that 
+    I like it as much as I thought I would.
+  */
+  & input {
+    border: 2px solid $grey-dark-mid;
+    transition: .2s width, .2s border;
+    width: 50%;
+
+    &.input-error, &.input-error:focus {
+      border: 2px solid $red;
+    }
+  }
+
+  & input:focus {
+    border: 2px solid $blue;
+    width: 50%;
+  }
+}
+
+// part of a larger "table" ruleset
+table {
+  .demo-list-order:hover, .demo-list-order.order-by {
+    border-bottom: 1px solid $blue;
+    cursor: pointer;
+    //text-decoration: underline;
+  }
+
+  td.demo-list-entry-delete {
+    color: $red;
+    transition: .1s background-color;
+
+    &:hover {
+      background-color: $red;
+      color: $white;
+      text-shadow: 2px 2px 0px $grey-dark-lighter;
+    }
+  }
+}
+
+.demo-controls {
+  //text-align: right;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
+  & label {
+    margin-left: 2em;
+  }
+
+  & input { 
+    margin-left: 1em;
+  }
+
+  & label:first-child {
+    margin-left: 0;
+    flex-grow: 5;
+  }
+}

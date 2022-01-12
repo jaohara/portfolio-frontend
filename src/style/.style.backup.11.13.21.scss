@@ -1,0 +1,2014 @@
+// Font Imports
+// JetBrains Mono, Roboto
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Roboto&display=swap');
+// Raleway, Source Sans Pro
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap');
+
+// Here are a few to try on
+
+// fonts
+$mono-font: "JetBrains Mono";
+$header-font: "BigolaDisplay-Regular";
+// $main-font: "Roboto";
+$main-font: "Raleway";
+
+
+// some linked in font families, mostly saved for reference
+$leco1976: "LECO1976-Regular";
+$airo: "Airo-Medium";
+$bigola: "BigolaDisplay-Regular";
+$albula: "AlbulaPro-Bold";
+$sublima: "Sublima-ExtraBold";
+
+// colors
+$blue-main: #0073ff;
+$blue-main-darker: #003980;
+$green-main: #bbff6e;
+$green-main-dark: #8CBF52;
+$green-main-darker: #2F401B;
+$green-light: #e6ffb3;
+$green-lighter: #edffe6;
+
+$grey-light-lighter: #efefef;
+$grey-light-mid: #dedede;
+$grey-light-dark: #bcbcbc;
+
+$grey-darker: #1d1f23;
+$grey-darker-translucent: #1d1f23bb;
+$grey-dark-mid: #21252b;
+$grey-dark-lighter: #282c34;
+$grey-dark-lightest: #30353e;
+
+
+$discord-color: #7289da;
+$github-color: #24292e;
+$darkmode-color: #ffcf2b;
+
+// some generic colors
+$red: #e06c75;
+$blue: #61afef;
+$green: #98c379;
+$orange: #e5c07b;
+$purple: #c577dc;
+$white: #efefef;
+
+
+$common-border-radius: 6px;
+$common-transition: .4s background-color;
+$dark-transition: .4s background-color, .4s color, .4s background;
+$responsive-transition: .4s font-size;
+
+// mixins
+@mixin before-link-decoration {
+  color: $blue;
+  content: "\27BC";
+  display: inline-block;
+  margin-left: -1.25em;
+  opacity: 0;
+  transition: .2s opacity;
+  width: 1.25em;
+}
+
+@mixin common-shadow {
+  box-shadow: 0px 5px 15px $grey-darker-translucent;
+}
+
+
+
+
+// responsive variables
+// calcs to account for scrollbar width when it isn't hidden
+$content-wrapper-large-width: calc(45% - (100vw - 100%));
+$content-wrapper-small-width: calc(65% - (100vw - 100%));
+$content-wrapper-tablet-width: calc(75% - (100vw - 100%));
+$content-wrapper-phone-width: calc(100% - (100vw - 100%));
+$header-large-width: calc(20% - (100vw - 100%));
+$header-image-width: calc(50% - (100vw - 100%));
+$full-page-width: calc(100% - (100vh - 100%));
+
+* {
+  margin-top: 0;
+}
+
+html {
+  // this accounts for scrollbars adding width when they pop in
+  //margin-left: calc(100vw - 100%);
+  // overflow-y: scroll;
+}
+
+// setup font variants
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: 'ss07';
+}
+
+a {
+  text-decoration: none;
+}
+
+// main body and dark/light mode stuff
+body {
+  color: $white;
+  // font-family: $main-font;
+  font-family: $mono-font;
+  margin: 0;
+  min-height: 100vh;
+  opacity: 1;
+  overflow-x: hidden;
+  padding: 0;
+  width: 100vw; // this works in tandem with overflow-x: hidden to counter scrollbar jump
+
+  // DARK MODE STYLES
+  &.dark-mode {
+    background-color: $grey-dark-mid;
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $blue;
+    }
+    
+
+    // todo: input hover effects?
+    input {
+      background-color: $grey-dark-lighter;
+      color: $grey-light-lighter;
+    }
+
+    label {
+      color: $blue;
+      font-weight: bold;
+    }
+
+    #content-wrapper {
+      background-color: $grey-dark-mid;
+    }
+
+    #page-body-wrapper {
+      color: $grey-light-lighter;
+    }
+
+    p {
+      color: $grey-light-lighter;
+    }
+
+  }
+}
+
+
+// ==================
+//    HEADER STUFF
+// ==================
+
+header {
+  /*
+    The position and top properties work in tandem to make this element
+    scroll with the page. I use the internal wrapper div to still have 
+    the benefit of the flexbox behavior for aligning the child content.
+  */
+
+  align-self: flex-start;
+  // background-color: $grey-dark-mid;
+  background-color: $grey-darker; // TODO: Temp to visualize header
+  font-size: 1.1em;
+  height: auto;
+  //max-width: 15em;
+  position: sticky;
+  top: 0;
+  //width: $header-large-width;
+  z-index: 1;
+
+  .header-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    //height: 80vh;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    z-index: 800;
+
+    img {
+      border: px solid $grey-dark-lightest;
+    }
+  }
+
+  h1 {
+    // TODO: which varation is the best? Is this one too noisey?
+    border-radius: 100px;
+    display: inline-block;
+    font-feature-settings: 'ss01';
+    line-height: .80em;
+    margin: 0;
+    min-width: 10%;
+    text-shadow: 0px 5px 15px $grey-darker-translucent;
+    transition: transform 5000ms;
+
+    .bigola-07 {
+      font-feature-settings: 'ss07';
+    }
+  }
+
+  img {
+    border-radius: 100%;
+    box-shadow: 0px 5px 3px $grey-darker;
+    margin-top: 1.0em;
+    transition: all 200ms;
+    transform: none;
+
+    &:hover {
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0px 6px 12px $grey-darker;
+    }
+  }
+}
+
+.main-nav {
+  // I don't like the positioning here as much, but I need the 
+  // padding hover transition on the nav ul li's to not adjust the
+  // overall width and ruin the centering.
+  align-self: baseline;
+  padding-left: 3em;
+
+  ul {
+    font-weight: bold;
+    line-height: 2em;
+    list-style: none;
+    width: 66%;
+  }
+
+  li {
+    display: inline;
+    margin-bottom: 2em;
+    margin-right: 1.5em;
+
+    a {
+      background-color: transparent;
+      border-left: .2em solid transparent;
+      border-radius: $common-border-radius;
+      box-shadow: 0;
+      color: $white;
+      display: inline-block;
+      margin: -.5em;
+      overflow-x: visible;
+      padding: .75em;
+      text-decoration: none;
+      transition: all 300ms;
+      z-index: 1;
+
+      &:before {
+        @include before-link-decoration();
+      }
+
+      &:hover:before, &.active:before {
+        opacity: 1;
+      }
+
+      &.active {
+        background-color: $grey-dark-lighter;
+      }
+    }
+  }
+}
+
+//  ===========================
+//     CONTENT WRAPPER STUFF
+//  ===========================
+
+.page-wrapper {
+  align-items: center;
+  border-radius: $common-border-radius;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  min-height: 92vh;
+  overflow: visible;
+  transition: .4s opacity;
+  width: 100%;
+}
+
+// input Stuff
+button:not(.glide__bullet) {
+  border: 0;
+  border-radius: $common-border-radius;
+  color: $blue;
+  cursor: pointer;
+  font-family: $main-font;
+  font-size: 1.2em;
+  font-weight: bold;
+  // padding: .5em 1em;
+  padding: .5em;
+  transition: /*.15s transform,*/ .15s background-color, .15s filter;
+
+  &:hover {
+    filter: brightness(1.05);
+    // transform: scale(1.01);
+  }
+
+  &:active {
+    filter: brightness(.95);
+    // transform: scale(.99);
+  }
+}
+
+input {
+  border: 0;
+  border-radius: $common-border-radius;
+  font-family: $main-font;
+  font-size: 1.2em;
+  outline: none;
+  padding: .5em 1em;
+}
+
+label {
+  font-weight: bold;
+}
+
+input:disabled, label.disabled {
+  opacity: 30%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  // font-family: $header-font;
+  font-family: $mono-font;
+  font-weight: bold;
+}
+
+// hide number input spinners
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input#row-limit {
+  width: 3em;
+  text-align: right;
+}
+
+
+// main content - TODO: Rewrite this to use the media queries
+.content-wrapper {
+  font-size: 1.2em;
+  margin-bottom: 3em;
+  margin-top: 2em; // TODO: reaaaaally rethink this approach
+  overflow: hidden;
+  //padding: 3em;
+  transition: $dark-transition;
+  width: $content-wrapper-large-width;
+  z-index: 100;
+}
+
+// =============================
+//    VARIOUS COMPONENT STUFF   
+// =============================
+
+// main page stylings
+.content-wrapper {
+  ul {
+    list-style-type: none;
+    line-height: 1.8em;
+
+    // need to be direct children to not affect <li>s in <ol> children
+    & > li::before {
+      color: $blue;
+      content: "\2724";
+      display: inline-block;
+      font-size: .8em;
+      margin-left: -1.5em;
+      width: 1.5em;
+    }
+  }
+
+  ol {
+    // this handles custom number styling
+    list-style: none;
+    counter-reset: list-counter;
+
+    & > li {
+      counter-increment: list-counter;
+    }
+
+    & > li::before {
+      content: counter(list-counter) ". ";
+      color: $blue;
+      font-weight: bold;
+      font-family: $header-font;
+      font-size: 1.1em;
+    }
+  }
+
+  p, ul, pre {
+    line-height: 1.6em;
+    margin-bottom: 2em;
+  }
+
+  & p > code, li > code {
+    background-color: $grey-dark-lighter;
+    border-radius: $common-border-radius;
+    color: $blue;
+    padding: .25em;
+  }
+
+  pre {
+    background-color: $grey-dark-lighter;
+    border-radius: $common-border-radius;
+    font-size: .8em;
+    padding: 1.5em;
+  }
+
+  li:not(:last-child) {
+    margin-bottom: .5em;
+  }
+}
+
+img[alt] {
+  color: $blue;
+  font-family: "JetBrains Mono";
+  font-size: 1.0rem;
+  text-align: center;
+}
+
+.pretty-date {
+  background-color: $grey-dark-mid;
+  border-radius: $common-border-radius;
+  font-size: 1.0rem;
+  font-weight: bold;
+  padding: .5em;
+  margin: -.5em;
+
+  & .pretty-date-value {
+    color: $blue;
+  }
+}
+
+
+// ==========================
+//    BLOG COMPONENT STUFF
+// ==========================
+
+$blog-title-size: 2.4rem; 
+
+.post-stub > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-stub {
+    .blog-post {
+    transition: background-color 150ms;
+
+    &:active, &:hover {
+      background-color: $grey-dark-lighter;
+    }
+  }
+
+  &:before {
+    @include before-link-decoration();
+    font-size: $blog-title-size;
+    padding-top: 1.8rem;
+    position: absolute;
+  }
+
+  &:hover:before {
+    opacity: 1;
+  }
+}
+
+.blog-post {
+  background-color: $grey-dark-mid;
+  border-radius: $common-border-radius;
+  margin-bottom: 1rem;
+  // this transition property eats the CSSTransitions for full Posts
+  //transition: background-color 400ms;
+  padding: 1.6rem;
+
+  &.selected-post > post-content {
+    background-color: $grey-dark-lighter;
+  }
+
+  h1 {
+    display: inline-block;
+    font-family: $header-font;
+    font-size: $blog-title-size;
+    margin-bottom: .5rem;
+  }
+
+  .post-meta {
+    margin-bottom: 1.5rem;
+
+    // prevent PostStubs from having more margin than necessary
+    &:only-child {
+      margin-bottom: .5rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 { 
+      font-size: 3.0rem;
+    }
+  }
+
+  .post-body {
+    font-size: 1.2rem;
+  }
+}
+
+.blog-post-back {
+  background-color: $grey-dark-lighter;
+  box-shadow: none;
+  color: $blue;
+  margin-bottom: 1rem;
+  transform: scaleX(-1);
+
+  &:hover {
+    transform: scaleX(-1);
+  }
+}
+
+// ===============================
+//    PORTFOLIO COMPONENT STUFF
+// ===============================
+
+// TODO: Probably revise how I handle this
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-top: 1em;
+  //padding: 2em;
+
+
+  h1 {
+    margin: 0;
+    z-index: 1;
+  }
+
+  .project-card {
+    border-radius: $common-border-radius;
+    display: flex;
+    margin-bottom: 1em;
+    overflow-y: hidden;
+    padding: 1em;
+    transition: all 400ms;
+
+    .project-card-image-wrapper {
+      //background-color: $grey-dark-lighter;
+      border-bottom-left-radius: 0;
+      border-radius: $common-border-radius;
+      border-top-left-radius: 0;
+      filter: blur(0px);
+      overflow: hidden;
+      margin-right: 1em;      
+      max-width: 128px;
+
+      img {
+        border-radius: 100%;
+        object-fit: cover;
+        height: 128px;
+        width: 128px;
+      }
+    }
+
+    .project-card-content {
+      flex: 1 !important;
+      margin-right: 1em;
+
+      h1 {
+        font-size: 3.0em;
+      }
+    }
+
+    .project-card-meta {
+
+      .pretty-date {
+        background-color: $grey-dark-lighter;
+        margin-bottom: 1.5em;
+      }
+
+      .project-card-meta-techs {
+        margin: 1em 0 1em -.5em;
+      }
+    }
+
+    &:hover {
+      background-color: $grey-dark-lighter;
+      cursor: pointer;
+    }
+
+    &.project-card-hidden {
+      //display: none;
+      filter: blur(5px);
+      height: 0;
+      opacity: .1;
+      position: relative;
+    }
+  }
+
+
+  .project-meta-tech, .project-tech-filter {
+    // border: 2px solid $blue;
+    background-color: $grey-dark-lighter;
+    border-radius: $common-border-radius;
+    color: $blue;
+    font-size: .8em;
+    font-weight: bold;
+    margin-right: .5em;
+    padding: .5em;
+    transition: all 200ms; // TODO: make "all 300ms" a variable so I can modify time universally
+  
+    &.selected {
+      background-color: $blue;
+      //color: $grey-light-lighter;
+      color: $grey-dark-lighter;
+    }
+  }
+
+  .project-filters {
+    margin-bottom: 1em;
+  }
+
+  .project-tech-filter {
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+}
+
+
+//  ======================
+//     TRANSITION STUFF
+//  ======================
+
+// TODO: Entirely remove/rethink page transitions?
+
+// this transition stuff is kind of a rat's nest of code. Not a fan of how I have 
+// this organized.
+
+// page transitions
+.page-enter, .page-appear, 
+.post-enter, .post-appear 
+//.project-card-enter, .project-card-appear  
+{
+  filter: blur(20px);
+  opacity: 0;
+  transform: translateX(150px);
+}
+
+.page-enter, .page-appear {
+  position: fixed;
+
+  // this is overridden (overwritten?) in the responsive media queries at the end
+  width: $content-wrapper-phone-width;
+}
+
+.page-enter-active, .page-appear-active, .post-enter-active, .post-appear-active {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 300ms;
+}
+
+.page-enter-done, .page-appear-done, .page-exit,
+.post-enter-done, .post-appear-done, .post-exit {
+  opacity: 1;
+  // this is necessary to avoid the jump when "transform: none" is applied
+  transform: translateX(0);
+}
+
+.page-exit, .post-exit {
+  position: fixed;
+}
+
+.page-exit {
+  width: $content-wrapper-phone-width; // overridden to proper size via media queries
+}
+
+.page-exit-done, .post-exit-done {
+  filter: blur(5px);
+  opacity: 0;
+  // this softens the transform and prevents blur from clipping at element bounds 
+  padding-left: 2em;  
+  position: fixed;
+  transform: translateX(-50px);
+}
+
+.page-exit-active, .post-exit-active {
+  filter: blur(5px);
+  opacity: 0;
+  padding-left: 2em;
+  position: fixed;
+  transform: translateX(-50px);
+  transition: all 300ms;
+}
+
+// TODO: Snip entire block?
+// ===============================================================
+// Project-card Transitions
+.portfolio {
+  .project-card {
+    &.project-card-enter, &.project-card-appear {
+      filter: blur(5px);
+      flex: none;
+      height: 0;
+      opacity: 0;
+      //position: fixed;
+      transform: scale(.96);
+    }
+
+    &.project-card-enter-active, &.project-card-appear-active {
+      flex: none;
+      height: auto;
+      transition: all 1000ms;
+    }
+
+    &.project-card-enter-done, &.project-card-appear-done {
+      flex: auto;
+      height: auto;
+      opacity: 1;
+      transform: scale(1);
+      //transform: scaleY(1);
+    }
+
+    &.project-card-exit {
+      flex: none;
+      height: auto;
+    }
+
+    &.project-card-exit-active {
+      filter: blur(10px);
+      flex: none;
+      height: 0;
+      //opacity: 0;
+      transform: scale(.96);
+    }
+
+    &.project-card-exit-done {
+      flex: none;
+      height: 0;
+    }
+  }
+}
+// ===============================================================
+
+
+// footer stuff
+footer {
+  align-items: center;
+  display: flex;
+  font-family: $main-font;
+  font-weight: bold;
+  justify-content: center;
+  margin-top: auto;
+  text-align: center;
+  height: 20vh;
+  width: 100%;
+
+  p.footer-text {
+    color: $blue;
+  }
+}
+
+table {
+  background-color: $grey-dark-lighter;
+  border-radius: $common-border-radius;
+  border-spacing: 0;
+  padding: 1.0em 0;
+  table-layout: fixed;
+  width: 100%;
+
+  tr {
+    transition: .2s opacity;
+  }
+
+  tr.removing {
+    opacity: 0;
+  }  
+
+  th, td {
+    border: 0;
+    width: 40%;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  th, td:first-child {
+    color: $blue;
+  }
+
+  td:first-child:not(.no-restricted-width), 
+  th:first-child:not(.no-restricted-width),
+  td:last-child, 
+  th:last-child {
+    font-weight: bold;
+    text-align: center;
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: .5em;
+  }
+
+  tbody tr:hover {
+    background-color: $grey-dark-mid;
+    cursor: pointer;
+  }
+}
+
+
+// =======================
+//    ANIMATION CLASSES
+// =======================
+
+.rotate {
+  animation: rotation 32s infinite linear;
+}
+
+.loading-rotate {
+  // maybe an ease-in type thing instead of linear?
+  animation: rotation 1.5s infinite linear, 
+    fade .5s infinite alternate-reverse;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: .2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cursor-blink {
+  from {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// =======================
+//    ADMIN PANEL STUFF
+// =======================
+
+$admin-top-gap: 48px;
+
+// Transition Mixins
+@mixin common-blur-appear {
+  filter: blur(1px);
+  opacity: 0;
+  transform: scale(.99);
+  transition: all 150ms;
+
+  &.active {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Color Mixins
+@mixin form-theme($color) {
+  h1, h2, h3, h4, h5, h6, label {
+    color: $color;
+  }
+
+  ::selection {
+    background: $color;
+    color: $grey-dark-mid;
+  }
+
+  button, .post-category, .project-technology, .admin-tag {
+    background-color: $grey-dark-lighter;
+    border-radius: $common-border-radius;
+    color: $color;
+    font-weight: bold;
+    padding: .5em 1em;
+    margin-right: .5em;
+
+    a {
+      color: $color;
+    }
+  }
+
+  button:hover:enabled {
+    border: 2px solid $color;
+  }
+
+  input, .ace_editor {
+    border: 2px solid transparent;
+    transition: border 100ms;
+
+    &:hover {
+      border: 2px solid $grey-dark-lightest;
+    }
+  }
+
+  .admin-tag:hover, .admin-tag.tag-exists {
+    border: 2px solid $color;
+  }
+
+  // TODO: Keep cursor white or match color?
+  // .admin-tag-add, .admin-tag-cursor {
+  .admin-tag-add, .admin-tag-text, .admin-tag-autocomplete {
+    color: $color;
+  }
+
+  input:focus, .ace_focus {
+    border: 2px solid $color;
+  }
+
+  .admin-checkbox-wrapper > 
+  .admin-checkbox:checked + .admin-styled-checkbox,
+  .admin-tooltip > .admin-tooltip-text,
+  .admin-table-delete-cell.armed {
+    background: $color;
+  }
+
+  .admin-checkbox-wrapper:hover > .admin-styled-checkbox,
+  .admin-checkbox:focus + .admin-styled-checkbox {
+    border: 2px solid $color;
+  }
+
+  .empty-requirement:not(label), .empty-requirement:hover:not(label) {
+    border: 2px solid $color;
+  }
+
+  .admin-form-controls, .admin-model-controls {
+    border-bottom: 2px solid $color;
+  }
+
+  // .admin-back-button-confirm, .admin-submit-button-warning {
+  .admin-form-controls-log {
+    color: $color;
+  }
+
+  .admin-search-bar-wrapper svg, .admin-input-text-clear svg {
+    color: $color;
+  }
+
+  .admin-search-bar-wrapper:hover > .admin-search-bar {
+    border: 2px solid $color;
+  }
+
+  .search-highlight, .required-warning {
+    color: $color;
+  }
+
+  .admin-table tr th, table td:first-child:not(.no-color), 
+  .data-length, .admin-table-delete-cell:not(.armed) {
+    color: $color;
+  }
+
+  .admin-table-visible-cell {
+    color: $color;
+  }
+
+  .admin-table-edit-link:hover {
+    color: $color;
+  }
+}
+
+#page-wrapper > .admin-panel {
+  font-family: $main-font;
+}
+
+// Transition Stuff
+.admin-page-enter, .admin-page-appear {
+  // filter: blur(15px);
+  max-width: 948px;
+  opacity: 0;
+  position: fixed;
+  transform: translateX(-50px);
+  // should i put position: fixed here? and set a width?
+}
+
+.admin-page-enter-active, .admin-page-appear-active {
+  // filter: blur(0);
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms;
+}
+
+.admin-page-enter-done, .admin-page-appear-done, .admin-page-exit {
+  opacity: 1;
+  //transform: translateX(0);
+}
+
+.admin-page-exit-done {
+  // filter: blur(50px);
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.centered-content-with-icon {
+  align-items: center;
+  display: flex;
+  //justify-content: space-between;
+
+  &.admin-button {
+    display: inline-flex;
+  }
+
+  svg {
+    margin-right: .5em;
+  }
+
+  &.left-margin svg {
+    margin-right: 0em;
+    margin-left: .5em;
+  }
+}
+
+.admin-dashboard {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+}
+
+.admin-card {
+  background-color: $grey-dark-lighter;
+  border-radius: $common-border-radius;
+  //border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  min-width: 200px;
+  padding: 2em 2em;
+  text-align: center;
+  transition: all 150ms;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+}
+
+.admin-card-count {
+  display: inline-flex;
+}
+
+.admin-card-icon {
+  font-size: 5em;
+}
+
+@mixin card-theme($color){
+  border-top: 10px solid $color;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+
+  svg, h1, .admin-card-color {
+    color: $color !important;
+  }
+
+  // &:hover {
+  //   border: 2px solid $color;
+  // }
+}
+
+.page-card {
+  @include card-theme($red);
+}
+
+.post-card {
+  @include card-theme($green);
+}
+
+.admin-card.project-card {
+  @include card-theme($blue);
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.admin-controls {
+  display: inline-flex;
+}
+
+.admin-table-edit-link {
+  color: $white;
+  display: inline-block;
+  height: 100%;
+  //font-weight: bold;
+  text-decoration: none;
+  width: 100%;
+}
+
+label + svg.required-warning {
+  display: block;
+  font-size: 1.6em;
+  margin-left: -1.5em;
+  opacity: 0;
+  padding-top: .5em;
+  position: absolute;
+  transition: all 200ms;
+  //transform: translateX(10px);
+  visibility: hidden;
+}
+
+label.empty-requirement + svg.required-warning {
+  opacity: 1;
+  // transform: translateX(0);
+  visibility: visible;
+}
+
+.admin-button {
+  &:disabled {
+    cursor: default;
+    opacity: 30%;
+
+    &:hover {
+      border: 2px solid transparent;
+    }
+  }
+}
+
+.admin-search-bar-wrapper {
+  cursor: pointer;
+  position: relative;
+
+  svg:not(.admin-search-bar-clear svg) {
+    margin-left: 1em;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+.admin-search-bar {
+  cursor: pointer;
+  font-family: $main-font !important;
+  font-weight: bold;
+  padding: .5em 1em;
+  transition: width 150ms;
+  width: .25em;
+
+  &:focus, &.has-term {
+    padding-left: 2em;
+    width: 12em;
+  }
+}
+
+.admin-search-bar-clear {
+  display: inline-flex;
+  margin-left: .25em;
+  opacity: 0;
+  font-size: 1.4em;
+  transition: all 200ms;
+  visibility: hidden;
+
+  &.clear-armed {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.admin-tag, .admin-tag-input-wrapper, .admin-tag-add {
+  margin-top: .5em;
+}
+
+.admin-tag-label {
+  font-size: 1.1em;
+}
+
+.admin-tag, .admin-tag a {
+  align-items: center;
+  display: inline-flex;
+
+  span.admin-tag-delete > svg {
+    margin-left: .5em;
+    transition: 100ms transform;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.admin-tag-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 3em;
+
+  // TODO: REMOVE, DEBUG STYLING
+  code {
+    font-weight: bold;
+    color: $blue;
+  }
+}
+
+.admin-tag-input-wrapper {
+  cursor: text;
+  display: none;
+  filter: blur(1px);
+  opacity: 0;
+  transition: opacity 150ms, filter 150ms;
+  transform: scale(0);
+  visibility: hidden;
+  white-space: nowrap;
+
+  &.admin-tag-input-wrapper-active {
+    display: inline;
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+}
+
+.admin-tag-input-styled {
+  background: $grey-dark-lighter;
+  border: 2px solid transparent;
+  border-radius: $common-border-radius;
+  display: inline-flex;
+  // margin-left: -2.4em;
+  min-height: 1.2em;
+  padding: .5em 1em;
+  position: relative;
+}
+
+.admin-tag-text {
+  font-weight: bold;
+}
+
+.admin-tag-cursor {
+  animation: cursor-blink infinite 1s;
+  margin: 0 -1px;
+}
+
+.admin-tag-autocomplete {
+  opacity: .33;
+}
+
+.admin-tag-input {
+  margin-left: -3px;
+  // margin-left: -8px;
+  // margin: 0;
+  opacity: 0;
+  padding: 0;
+  //visibility: hidden;
+  width: 0px;
+}
+
+.admin-tag-add {
+  cursor: pointer;
+  display: inline-flex;
+  filter: none;
+  font-size: 1.4em;
+  opacity: 1;
+  position: relative;
+  padding-left: .25em;
+  transition: filter 150ms, transform 100ms, opacity 50ms;
+  visibility: visible;
+
+  &:hover {
+    filter: brightness(1.05);
+    // transform: scale(1.1);
+  }
+
+  &:active {
+    filter: brightness(.85);
+    transform: scale(.975);
+  }
+
+  &.add-hidden {
+    filter: blur(1px);
+    opacity: 0;
+    padding: 0;
+    // position: relative
+    visibility: hidden;
+    width: 0px;
+  }
+}
+
+.admin-tag-delete {
+  cursor: pointer;
+  display: inline-flex;
+  transition: all 30ms;
+
+  &:focus {
+    // color: white;
+    outline: 0;
+    transform: scale(1.2);
+  }
+}
+
+.admin-top-border {
+  background-color: $grey-light-dark;
+  position: fixed;
+  height: 24px;
+  transition: background-color 500ms;
+  width: 100%;
+  z-index: 10;
+
+  &.page-border {
+    background-color: $red;
+  }
+
+  &.post-border {
+    background-color: $green;
+  }
+
+  &.project-border {
+    background-color: $blue;
+  }
+
+  &.home-border {
+    background-color: $grey-light-dark;
+  }
+}
+
+.admin-tag {
+  border: 2px solid transparent;
+  transition: 200ms all;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+table th.no-color, table td.no-color:first-child { 
+  color: $white;
+}
+
+.admin-panel {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+
+  h1, h2, h3, h4, h5 {
+    font-family: $main-font;
+  }
+
+  .admin-panel-content-wrapper {
+    border-top: 24px solid transparent;
+    padding: 2em;
+    padding-top: $admin-top-gap;
+    max-width: 948px;
+    width: 100%;
+    transition: all 500ms;
+
+    // TODO: Remove the double style definitions - admin-*-form should be redundant
+    .admin-page-form, .admin-panel-pages {
+      @include form-theme($red);
+    }
+
+    .admin-post-form, .admin-panel-posts {
+      @include form-theme($green);
+    }
+
+    .admin-project-form, .admin-panel-projects {
+      @include form-theme($blue);
+    }
+
+    form {
+      input:not(.admin-tag-input) {
+        min-width: 24em;
+      }
+    }
+  }
+
+  label:not(.admin-search-bar-wrapper, .admin-checkbox-wrapper, 
+    .admin-input-text-label, .admin-editor-label, .admin-tag-label) {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: .5em;
+    // text-decoration: underline;
+
+    &.admin-editor-label {
+      display: inline-flex;
+      margin-left: 0em;
+      // margin-bottom: 0;
+
+      svg {
+        margin-left: .5em;
+      }
+    }
+
+    &.-checkbox-wrapper.no-margin {
+      margin-left: 0em;
+    }
+  }
+
+  button {
+    border: 2px solid transparent;
+    color: $grey-dark-mid;
+    transition: all 100ms;
+
+    &:hover, &:active {
+      transform: none;
+    }
+  }
+
+  input {
+    font-family: $main-font;
+  }
+
+
+  // set border radius for AceEditor components
+  #page-body, #post-body, #project-description {
+    border-radius: $common-border-radius;
+    // kinda ugly, but this is where the 80 char mark is with 18px font size.
+    max-width: 940px;
+    width: 100%;
+  }
+}
+
+.admin-panel-sidebar {
+  font-size: 1.2em;
+  min-height: 100vh;
+  min-width: 12em;
+  padding-top: 24px;
+
+  .sidebar-header {
+    color: $grey-light-dark;
+    font-size: 1.6em;
+    transition: all 100ms;
+
+    &:hover {
+      text-shadow: -2px 2px 0px $grey-dark-lightest;
+    }
+
+    &.centered-content-with-icon svg {
+      font-size: 2.0em;
+      margin-right: .25em;
+    }
+  }
+
+  .admin-panel-sidebar-content-wrapper {
+    margin: 24px;
+    margin-top: 48px;
+    max-width: 8em;
+    position: fixed;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  a {
+    color: $blue;
+
+    &.sidebar-link {
+      border-radius: $common-border-radius;
+      font-weight: bold;
+      padding: .5em 1em;
+      text-decoration: none;
+      transition: background 250ms;
+
+      &:hover, &.sidebar-link-active {
+        background-color: $grey-dark-mid;
+      }
+    }
+
+    &.pages-link {
+      color: $red;
+    }
+
+    &.posts-link {
+      color: $green;
+    }
+
+    &.sidebar-exit-link {
+      color: $orange;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 1em;
+    padding-left: 2em;
+    
+    li {
+      margin-bottom: .5em;
+      margin-left: -1.0em;
+      margin-right: -3em;
+    }
+  }
+}
+
+.admin-form-controls, .admin-model-controls {
+  box-shadow: 0px 8px 8px $grey-dark-mid;
+  background-color: $grey-dark-mid;
+  border-bottom: 2px solid transparent;
+  //kind of a little hack to hide the bits underneath as this scrolls
+  margin-top: -100px;
+  max-width: 948px;
+  padding-top: 100px;
+  // padding-left: 48px;
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+
+  .admin-form-button {
+    //padding: inherit .5em;
+
+    svg {
+      margin: 0;
+    }
+  }
+}
+
+// hides a portion of the gutter between the sidebar and form view
+// where empty-requirement icons might be displayed
+.admin-form-visibility-hack {
+  box-shadow: 0px 10px 15px $grey-dark-mid;
+  background: $grey-dark-mid;
+  height: 119px;
+  margin-left: -48px;
+  // margin-top: -84px;
+  position: fixed;
+  width: 100px;
+  z-index: 1;
+}
+
+.admin-form, .admin-table-wrapper {
+  padding-top: 10em;
+}
+
+.admin-tooltip {
+  /*
+    TODO: Hovering over where the tooltip will eventually be shouldn't
+    cause the tooltip to appea.r
+  */
+  cursor: help;
+  max-width: 240px;
+  position: relative;
+  //text-align: center;
+  text-decoration: dotted;
+
+
+
+  $x-offset: 3px;
+
+  svg {
+    transform: scale(1.2) translateX($x-offset);
+    transition: all 100ms ease-in-out;
+  }
+
+  &:hover svg {
+    transform: scale(1.2) translateX($x-offset) translateY(-2px);
+  }
+
+  .admin-tooltip-text {
+    background: $white;
+    border-radius: $common-border-radius;
+    box-shadow: 1px 1px 0px $grey-darker;
+    bottom: 115%;
+    display: inline;
+    color: $grey-dark-mid;
+    filter: blur(1px);
+    font-size: .4em;
+    left: 0;
+    // strange hack to make the tooltip wider
+    margin-left: -48px;
+    margin-right: -48px;
+    opacity: 0%;
+    padding: 1.07em;
+    position: absolute;
+    transform: scale(.99) translateY(3px);
+    transition: all 200ms ease-in-out, filter 100ms ease-in-out;
+    visibility: hidden;
+    white-space: normal !important;
+    z-index: 11;
+
+    svg {
+      color: $red;
+      font-size: 4.0em;
+      left: 35%;
+      position: absolute;
+    }
+  }
+
+  &:hover .admin-tooltip-text {
+    filter: blur(0);
+    opacity: 100%;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+  }
+}
+
+.admin-input-text-label, .admin-editor-label {
+  font-size: 1.1em;
+  margin-bottom: .5em;
+}
+
+.admin-input-text-label svg {
+  font-size: .9em;
+  margin-left: .5em;
+}
+
+.admin-input-and-clear-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.admin-input-text-clear {
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 1.6em;
+  filter: blur(1px);
+  padding: 0 .5em;
+  opacity: 0;
+  position: relative;
+  transform: translateX(-.35em) scale(.99);
+  transition: all 150ms;
+
+  &.clear-active {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.admin-table {
+  font-size: 1.2em;
+
+  .centered-cell, .centered-cell {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    // width: max-content;
+  }
+
+  .admin-checkbox-wrapper {
+    margin: 0 auto;
+    width: max-content;
+  }
+
+  .admin-checkbox-wrapper .admin-styled-checkbox {
+    background: $grey-dark-mid;
+    
+    svg {
+      color: $grey-dark-mid;
+    }
+  }
+
+  tbody tr:hover {
+    background: $grey-darker;
+  }
+  
+  tr td:first-child, tr th:first-child {
+    max-width: max-content;
+    padding-left: 1.5em;
+    text-align: left;
+  }
+
+  tr {
+    border-left: 4px solid transparent;
+  }
+
+  .admin-table-small-cell, .centered-cell {
+    // this is kind of gross
+    //max-width: 24px;
+    width: 5%;
+  }
+}
+
+.admin-table-delete-cell {
+  background: transparent;
+  color: $red;
+  position: relative;
+  transition: all 200ms;
+
+  &.armed {
+    //background-color: $red;
+    color: $white;
+  }
+
+  &:hover {
+    padding-left: 2em;
+
+    & .admin-table-delete-cell-lock {
+      opacity: .8;
+      visibility: visible;
+    }
+  }
+}
+
+.admin-table-delete-cell-lock {
+  // this will be super similar to the tooltip
+  font-size: .9em;
+  left: 1em;
+  opacity: 0;
+  position: absolute;
+  transition: all 200ms;
+  visibility: hidden;
+}
+
+.admin-table-visible-cell {
+  opacity: .5;
+  text-align: center;
+  transition: all 200ms, transform 50ms;
+
+  &.active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.admin-table-delete-cell, .admin-table-visible-cell {
+  font-size: 1.4em;
+}
+
+.admin-table-visible-cell-untoggled {
+  opacity: .3;
+}
+
+.admin-checkbox-wrapper {
+  align-items: center;
+  display: flex;
+  margin-left: 0;
+  width: max-content;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  // the hidden checkbox defined by the input tag
+  .admin-checkbox {
+    // these attributes are from a tutorial. While understandable, 
+    //  it's the kind of thing that might now be 
+    border: 0;
+    clip: rect(0,0,0,0);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  // the styled div that represents the state of the hidden checkbox
+  .admin-styled-checkbox {
+    // ugly temp
+    align-items: center;
+    background: $grey-dark-lighter;
+    border: 2px solid transparent;
+    border-radius: $common-border-radius;
+    display: inline-flex;
+    height: 22px;
+    justify-content: center;
+    margin-right: .75em;
+    transition: all 75ms ease-out;
+    width: 22px;
+
+    svg {
+      color: $grey-dark-lighter;
+      font-size: 1.2em;
+      transition: all 150ms;
+    }
+  }
+
+  // the checked state of the styled checkbox
+  .admin-checkbox:checked + .admin-styled-checkbox {
+    // ugly temp
+    background: blue;
+  }
+}
+
+.admin-checkbox:checked:focus + .admin-styled-checkbox {
+  border: 2px solid $grey-dark-lighter;
+}
+
+.admin-form-controls-log, .admin-back-button-confirm, .admin-submit-button-warning,
+.admin-search-error {
+  display: inline-flex;
+  filter: blur(1px);
+  font-size: 1.2em;
+  opacity: 0;
+  padding-left: 1em;
+  transition: all 120ms ease-out;
+  transform: scale(.99) translateX(-1.5em);
+  visibility: hidden;
+
+  svg {
+    margin-right: .5em;
+  }
+
+  // &.active-confirm-prompt, &.active-submit-warning {
+  &.log-active, &.search-error-active {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    visibility: visible;
+  }
+}
+
+.data-length {
+  font-weight: bold;
+  text-align: right;
+}
+
+.admin-loading-animation {
+  align-items: center;
+  color: $grey-light-dark;
+  display: flex;
+  font-size: 16em;
+  justify-content: center;
+  min-height: 80vh;
+  transform: color 500ms;
+  width: 100%;
+
+  &.page {
+    color: $red;
+  }
+
+  &.post {
+    color: $green;
+  }
+
+  &.project {
+    color: $blue;
+  }
+}
+
+
+// ======================
+//    RESPONSIVE STUFF
+// ======================
+
+
+// phones
+@media only screen {
+  #page-wrapper {
+    flex-direction: column;
+  }
+
+  header {
+    // width: 100%;
+    width: $content-wrapper-phone-width;
+    
+    // strange, why did I make this one a class?
+    .header-wrapper {
+      flex-direction: row;
+      width: 100%;
+
+      img {
+        width: 64px;
+      }
+    }
+  }
+
+  #content-wrapper{
+    width: $content-wrapper-phone-width;
+  }
+
+  header, #content-wrapper {
+    padding-left: 1em;
+  }
+}
+
+
+// tablets - is this a good approach with the max-bounded media query?
+@media only screen and (min-width: 43em) and (max-width: 62em) {
+  header {
+    align-self: center;
+    position: static;
+
+    .header-wrapper {
+      align-items: center;
+      // flex-direction: column;
+      width: 100%;
+
+      h1 {
+        font-size: 2.0em;
+        line-height: 1em;
+        margin-top: 0;
+        padding-bottom: 0
+      }
+
+      // TODO: I don't think this does what I want it to do
+      br {
+        display: none;
+
+        &::before {
+          content: " ";
+        }
+      }
+      
+      img {
+        width: 128px;
+      }
+    }
+  }
+
+  #content-wrapper, header{
+    // width: $content-wrapper-tablet-width;
+  }
+
+  #page-wrapper {
+    align-items: center;
+  }
+
+  .page-enter, .page-appear, .page-exit {
+    // width: $content-wrapper-tablet-width;
+  }
+}
+
+// smaller screens
+@media only screen and (min-width: 62em) {
+  header {
+    font-size: 1.4em;
+    
+    h1 {
+      line-height: 1.0em;
+      margin: 0;
+      text-align: center;
+    }
+
+    nav.main-nav ul {
+      line-height: 1em;
+      width: inherit;
+
+      // li {
+      //   // display: block;
+
+      //   a {
+      //     &:hover, &.active {
+      //       padding-left: 1.5em;
+      //     }
+      //   }
+      // }
+    }
+
+    .header-wrapper {
+      // flex-direction: column;
+      // height: 80vh;
+
+      img {
+        width: 160px;
+      }
+    }
+  }
+
+  #page-wrapper {
+    align-items: baseline;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  #content-wrapper {
+    // min-height: 80vh;
+    padding: 2em 2em 2em 4em;
+    // width: $content-wrapper-small-width;
+  }
+
+  .page-enter, .page-appear, .page-exit {
+    // width: $content-wrapper-small-width;
+  }
+
+  footer { 
+    display: none;
+  }
+}
+
+// larger screens
+@media only screen and (min-width: 82em) {
+  #page-wrapper {
+    justify-content: center;
+  }
+
+  #content-wrapper {
+    // width: $content-wrapper-large-width;
+  }
+
+  .page-enter, .page-appear, .page-exit {
+    // width: $content-wrapper-large-width;
+  }
+}

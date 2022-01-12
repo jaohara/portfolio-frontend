@@ -1,0 +1,1 @@
+/home/john/Portfolio/project_log.md
