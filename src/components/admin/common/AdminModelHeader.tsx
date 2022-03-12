@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { FaFileAlt, FaFileCode, FaFileSignature } from "react-icons/fa";
+import { FaFileAlt, FaFileCode, FaFileImage, FaFileSignature } from "react-icons/fa";
 
 import { AdminModelHeaderProps } from "../../PropInterfaces";
 
@@ -9,8 +9,9 @@ const AdminModelHeader: FC<AdminModelHeaderProps> = ({ modelName }) => {
     <h1 className="centered-content-with-icon">
       {
         modelName === "Post" ? ( <FaFileSignature /> ) :
-        modelName === "Page" ? ( <FaFileAlt /> ):
-        ( <FaFileCode /> )
+        modelName === "Page" ? ( <FaFileAlt /> ) :
+        modelName === "Project" ? (<FaFileCode />) :
+        ( <FaFileImage /> )
       }
       { modelName }s
     </h1>

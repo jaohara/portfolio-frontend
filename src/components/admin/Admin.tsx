@@ -15,8 +15,11 @@ import AdminLoading from './common/AdminLoading';
 import PageAdmin from "./PageAdmin";
 import PostAdmin from "./PostAdmin";
 import ProjectAdmin from "./ProjectAdmin";
+import ImageAdmin from "./ImageAdmin";
 
 const Admin: FC<AdminPageProps> = ({ fetchAllData }) => {
+  const [ imagesSize, setImagesSize]              = useState(0);
+  const [ imagesLoaded, setImagesLoaded ]         = useState(false);
   const [ pagesSize, setPagesSize ]               = useState(0);
   const [ postsSize, setPostsSize ]               = useState(0);
   const [ projectsSize, setProjectsSize ]         = useState(0);
@@ -25,28 +28,40 @@ const Admin: FC<AdminPageProps> = ({ fetchAllData }) => {
   const [ projectsLoaded, setProjectsLoaded ]     = useState(false);
   const [ topBorderClass, setTopBorderClass ]     = useState("home");
 
+  const parseDataSetLength = (data: any[]) =>
+    data.length === undefined || data.length === null ? 0 : data.length;
+
   useEffect(() => {
     fetchData("/pages/all", () => {}, (data: any) => {
-      setPagesSize(data.length === undefined || data.length === null ? 0 : data.length);
+      setPagesSize(parseDataSetLength(data));
+      // setPagesSize(data.length === undefined || data.length === null ? 0 : data.length);
       setPagesLoaded(true);
     });
 
     fetchData("/posts/all", () => {}, (data: any) => {
-      setPostsSize(data.length === undefined || data.length === null ? 0 : data.length);
+      setPostsSize(parseDataSetLength(data));
+      // setPostsSize(data.length === undefined || data.length === null ? 0 : data.length);
       setPostsLoaded(true)
     });
 
     fetchData("/projects/all", () => {}, (data: any) => {
-      setProjectsSize(data.length === undefined || data.length === null ? 0 : data.length);
+      setProjectsSize(parseDataSetLength(data));
+      // setProjectsSize(data.length === undefined || data.length === null ? 0 : data.length);
       setProjectsLoaded(true);
     });
 
+    fetchData("/images/all", () => {}, (data: any) => {
+      setImagesSize(data.length === undefined || data.length === null ? 0: data.length)
+      // setImagesSize(data.length === undefined || data.length === null ? 0: data.length)
+      setImagesLoaded(true);
+    })
   }, []);
 
   const adminRoutes = [
     { path: "/admin/pages", name: "Pages", Component: PageAdmin },
     { path: "/admin/posts", name: "Posts", Component: PostAdmin },
     { path: "/admin/projects", name: "Projects", Component: ProjectAdmin },
+    { path: "/admin/images", name: "Images", Component: ImageAdmin },
   ];
 
   const clickButtonOfClass = (targetClass: string) => {
@@ -86,6 +101,9 @@ const Admin: FC<AdminPageProps> = ({ fetchAllData }) => {
       }      
       else if (ctrl("3", e)) {
         clickButtonOfClass("projects-link");
+      }
+      else if (ctrl("4", e)) {
+        clickButtonOfClass("images-link");
       }
     });
   }, []);
@@ -132,7 +150,7 @@ const Admin: FC<AdminPageProps> = ({ fetchAllData }) => {
             //setBorderIfNeeded("")
           }
           {
-            !pagesLoaded && !postsLoaded && !projectsLoaded ? 
+            !pagesLoaded && !postsLoaded && !projectsLoaded && !imagesLoaded ? 
             ( <AdminLoading destination="dashboard"/> ) :
             ( // insert CSSTransition code here
               <div className="admin-dashboard">
@@ -152,6 +170,12 @@ const Admin: FC<AdminPageProps> = ({ fetchAllData }) => {
                   modelCount={projectsSize}
                   modelName="Project"
                   modelRoute="/admin/projects"
+                />
+
+                <AdminCard
+                  modelCount={imagesSize}
+                  modelName="Image"
+                  modelRoute="/admin/images"
                 />
               </div>
             ) // end CSS Transition code here

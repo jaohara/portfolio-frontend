@@ -1498,6 +1498,11 @@ table {
 //                      ADMIN PANEL STUFF
 // =========================================================
 
+$page-color: $red;
+$post-color: $green;
+$project-color: $blue;
+$image-color: $purple;
+
 .rotate {
   animation: rotation 32s infinite linear;
 }
@@ -1718,6 +1723,7 @@ $admin-top-gap: 48px;
 .admin-dashboard {
   display: flex;
   flex-shrink: 0;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 
@@ -1728,6 +1734,7 @@ $admin-top-gap: 48px;
   cursor: pointer;
   font-size: 1.2em;
   font-weight: bold;
+  margin-bottom: 2rem;
   min-width: 200px;
   padding: 2em 2em;
   text-align: center;
@@ -1766,15 +1773,19 @@ $admin-top-gap: 48px;
 }
 
 .page-card {
-  @include card-theme($red);
+  @include card-theme($page-color);
 }
 
 .post-card {
-  @include card-theme($green);
+  @include card-theme($post-color);
 }
 
 .admin-card.project-card {
-  @include card-theme($blue);
+  @include card-theme($project-color);
+}
+
+.admin-card.image-card {
+  @include card-theme($image-color);
 }
 
 .inline-flex {
@@ -2002,15 +2013,19 @@ label.empty-requirement + svg.required-warning {
   z-index: 10;
 
   &.page-border {
-    background-color: $red;
+    background-color: $page-color
   }
 
   &.post-border {
-    background-color: $green;
+    background-color: $post-color;
   }
 
   &.project-border {
-    background-color: $blue;
+    background-color: $project-color;
+  }
+
+  &.image-border {
+    background-color: $image-color;
   }
 
   &.home-border {
@@ -2050,15 +2065,19 @@ table th.no-color, table td.no-color:first-child {
 
     // TODO: Remove the double style definitions - admin-*-form should be redundant
     .admin-page-form, .admin-panel-pages {
-      @include form-theme($red);
+      @include form-theme($page-color);
     }
 
     .admin-post-form, .admin-panel-posts {
-      @include form-theme($green);
+      @include form-theme($post-color);
     }
 
     .admin-project-form, .admin-panel-projects {
-      @include form-theme($blue);
+      @include form-theme($project-color);
+    }
+
+    .admin-image-form, .admin-panel-images {
+      @include form-theme($image-color);
     }
 
     form {
@@ -2163,11 +2182,15 @@ table th.no-color, table td.no-color:first-child {
     }
 
     &.pages-link {
-      color: $red;
+      color: $page-color
     }
 
     &.posts-link {
-      color: $green;
+      color: $post-color;
+    }
+
+    &.images-link {
+      color: $image-color;
     }
 
     &.sidebar-exit-link {
@@ -2515,15 +2538,19 @@ table th.no-color, table td.no-color:first-child {
   width: 100%;
 
   &.page {
-    color: $red;
+    color: $page-color;
   }
 
   &.post {
-    color: $green;
+    color: $post-color;
   }
 
   &.project {
-    color: $blue;
+    color: $project-color;
+  }
+
+  &.image {
+    color: $image-color;
   }
 }
 

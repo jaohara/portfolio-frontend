@@ -3,7 +3,7 @@
 */
 
 import { Dispatch, FC, MouseEventHandler, SetStateAction } from "react";
-import { ActiveMenuType, MenuControls, Page, Post, Project } from "./Types";
+import { ActiveMenuType, Image, MenuControls, Page, Post, Project } from "./Types";
 
 // Props for Header, Footer
 export interface SectionProps {
@@ -64,7 +64,6 @@ export interface StaticPageProps {
   pagePath?: string,
   title: string,
 }
-
 
 export interface ModelProps {
   body: string,
@@ -175,6 +174,7 @@ export interface AdminPageProps {
 
 // Props for AdminSideBar
 export interface AdminSideBarProps {
+  // activePage: string,
   adminRoutes?: {
     Component: FC<ModelAdminProps>,
     name: string,
@@ -216,8 +216,12 @@ export interface AdminProjectFormProps extends AdminFormProps {
   initialData: Project,
 };
 
-// Props for AdminInputText
-export interface AdminInputTextProps {
+export interface AdminImageFormProps extends AdminFormProps {
+  initialData: Image,
+};
+
+// Props for AdminInput Components
+export interface AdminInputProps {
   className?: string,
   emptyRequirement?: boolean,
   id: string,
@@ -226,7 +230,8 @@ export interface AdminInputTextProps {
   // to manually change the value for clear buttons
   setValue?: Dispatch<SetStateAction<string>>,
   // specify a special label icon
-  special?: "github" | "markdown" | "url",
+  special?: "github" | "markdown" | "url" | "image",
+  type?: "file" | "text",
   value: string,
 };
 
@@ -342,6 +347,11 @@ export interface AdminTableVisibleCellProps {
   toggleKey: string,
   toggleRoute: string,
 };
+
+// Props for AdminTablePreviewCell 
+export interface AdminTablePreviewCellProps {
+  path: string,
+}
 
 // Props for AdminTableTooltipCell
 export interface AdminTableTooltipCellProps {

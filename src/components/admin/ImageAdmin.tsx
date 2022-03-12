@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Link, Route, Switch, useParams } from "react-router-dom";
 
 import JsxParser from "react-jsx-parser";
 
 import { AdminFormRouteParams, ModelAdminProps } from "../PropInterfaces";
-import { Post } from "../Types";
+import { Image } from '../Types';
 
 import { fetchData, highlightSearchTerms, notNullOrUndefined, unbindFormSubmissionHotkey } 
   from "../common/Helpers";
@@ -12,45 +12,39 @@ import { fetchData, highlightSearchTerms, notNullOrUndefined, unbindFormSubmissi
 import AdminControls from "./common/AdminControls";
 import AdminDataLength from "./common/AdminDataLength";
 import AdminTableDeleteCell from "./common/AdminTableDeleteCell";
+import AdminTablePreviewCell from "./common/AdminTablePreviewCell";
 import AdminTableTooltipCell from "./common/AdminTableTooltipCell";
-import AdminTableVisibleCell from "./common/AdminTableVisibleCell";
 import AdminLoading from "./common/AdminLoading";
 
-import PostForm from "./PostForm";
+import ImageForm from "./ImageForm";
 
-const PostAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
+const ImageAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
   // const [ error, setError ]         = useState(null);
   const [ , setError ]              = useState(null);
   const [ filter, setFilter ]       = useState("");
+  const [ images, setImages ]       = useState([]);
   const [ isLoaded, setIsLoaded ]   = useState(false);
-  const [ posts, setPosts ]         = useState([]);
 
   let { editId } = useParams<AdminFormRouteParams>();
 
   useEffect(() => {
     unbindFormSubmissionHotkey();
-    borderChangeCallback !== undefined && borderChangeCallback("post");
-    fetchPosts();
+    borderChangeCallback !== undefined && borderChangeCallback("image");
+    fetchImages();
   }, []);
 
-  const fetchPosts = () => fetchData("/posts/all", setIsLoaded, setPosts, setError);
+  const fetchImages = () => fetchData("/images/all", setIsLoaded, setImages, setError);
 
-  const createEmptyPost = () => ({
-    body: "",
-    hidden: true,
-    title: "",
-  } as Post);
+  const createEmptyImage = () => ({
+    description: "",
+    name: "",
+  } as Image);
 
-  /* 
-    again, a lot of code reuse. Is this as generic as I can make these? There's 
-    a lot of hard-coded values based on model. Am I able to make these more 
-    reusable in spite of that? 
-  */ 
-  const getPostIfExists = () => {
-    let result = createEmptyPost();
+  const getImageIfExists = () => {
+    let result = createEmptyImage();
 
-    if (notNullOrUndefined(posts)) {
-      let filterResult = posts.filter((post: Post) => post.id === editId);
+    if (notNullOrUndefined(images)) {
+      let filterResult = images.filter((image: Image) => image.id === editId);
 
       result = filterResult.length > 0 ? filterResult[0] : result;
     }
@@ -59,39 +53,46 @@ const PostAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
   };
 
   return (
-    <div className="admin-panel-posts">
+    <div className="admin-panel-images">
       {
-        !isLoaded ? <AdminLoading destination="post"/> : (
+        !isLoaded ? <AdminLoading destination="image"/> : (
           <Switch>
-            <Route path="/admin/posts/create">
-              <PostForm 
-                backCallback={fetchPosts}
-                initialData={createEmptyPost() as Post}
+            <Route path="/admin/images/create">
+              <ImageForm 
+                backCallback={fetchImages}
+                initialData={createEmptyImage() as Image}
               />
             </Route>
 
-            <Route path="/admin/posts/edit/:editId">
-              <PostForm
-                backCallback={fetchPosts}
-                initialData={getPostIfExists() as Post}
+            <Route path="/admin/images/edit/:editId">
+              <ImageForm
+                backCallback={fetchImages}
+                initialData={getImageIfExists() as Image}
               />
             </Route>
 
-            <Route exact={true} path="/admin/posts">
+            <Route exact={true} path="/admin/images">
               <AdminControls 
                 filterOnChange={setFilter}
                 filterValue={filter}
-                modelName="Post"
+                modelName="Image"
               />
 
               {
-                posts.length > 0 ? (
+                images.length > 0 ? (
                 <div className="admin-table-wrapper">
                   <AdminDataLength
-                    dataLength={posts.length}
+                    dataLength={images.length}
                     modelName="Post"
                   />
 
+                  {
+                    /*
+                      Right now this table structure is adapted from PostAdmin - I should rethink
+                      how I want to display all of the images, as I don't think this is the best 
+                      solution for this.
+                    */
+                  }
                   <table className="admin-table">
                     <thead>
                       <tr>
@@ -99,57 +100,53 @@ const PostAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
                           ID
                         </th>
                         <th>
-                          Title
+                          Name
                         </th>
                         <AdminTableTooltipCell 
-                          cellContent="Visible?"
-                          tooltipText="Whether or not the Post is visible in the Blog index."
+                          cellContent="Preview"
+                          tooltipText="Hover to display image preview."
                         />
                         <AdminTableTooltipCell 
                           cellContent="Delete?"
-                          tooltipText="Permanently deletes the given Post."
+                          tooltipText="Permanently deletes the given Image."
                         />
                       </tr>
                     </thead>
 
                     <tbody>
                       {
-                        posts.map((post: any) => (
+                        images.map((image: any) => (
                           (filter.length === 0 ||
-                            post.title.toLowerCase().match(filter.toLowerCase()) !== null) && (
-                          <tr key={post.id}>
+                            image.name.toLowerCase().match(filter.toLowerCase()) !== null) && (
+                          <tr key={image.id}>
                             <td>
-                              {post.id}
+                              {image.id}
                             </td>
                             <td>
                               <Link
                                 className="admin-table-edit-link"
-                                to={`/admin/posts/edit/${post.id}`}
+                                to={`/admin/images/edit/${image.id}`}
                               >
                               {
-                                filter.length === 0 ? post.title : 
+                                filter.length === 0 ? image.name : 
                                 (
                                   <JsxParser
-                                    jsx={highlightSearchTerms(post.title, filter)}
+                                    jsx={highlightSearchTerms(image.name, filter)}
                                   />
                                 )
                               }
                               </Link>
                             </td>
 
-                            <AdminTableVisibleCell
-                              initialVisibility={!post.hidden}
-                              invertedModel={true}
-                              primaryKey={post.id}
-                              toggleKey="hidden"
-                              toggleRoute="/posts/update"
+                            <AdminTablePreviewCell
+                              path="TEMP_FIX_ME"
                             />
 
                             <AdminTableDeleteCell
                               deletionKey="id"
-                              deletionRoute="/posts/delete"
-                              deletionValue={post.id}
-                              successCallback={fetchPosts}
+                              deletionRoute="/images/delete"
+                              deletionValue={image.id}
+                              successCallback={fetchImages}
                             />
                           </tr>
                         )))
@@ -158,7 +155,7 @@ const PostAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
                   </table> 
                 </div>) : (
                 <p className="no-model-data-message">
-                  There are no Posts saved.
+                  There are no Images saved.
                 </p>)
               }
             </Route>
@@ -169,4 +166,4 @@ const PostAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
   );
 };
 
-export default PostAdmin;
+export default ImageAdmin;

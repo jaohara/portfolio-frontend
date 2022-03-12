@@ -154,7 +154,7 @@ const ProjectAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
                     </tbody>
                   </table> 
                 </div>) : (
-                <p>
+                <p className="no-model-data-message">
                   There are no Projects saved.
                 </p>)
               }

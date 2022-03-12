@@ -90,6 +90,14 @@ export interface Page {
   primary_key?: number | string,
 };
 
+export interface Image {
+  created?: string,
+  description?: string,
+  id?: number,
+  name?: string,
+  static_url?: string,
+}
+
 export interface MenuControls {
   name: string,
   hide: () => void,

@@ -151,7 +151,7 @@ const PageAdmin: FC<ModelAdminProps> = ({ borderChangeCallback }) => {
                     </tbody>
                   </table>
                 </div> ) : (
-                <p>
+                <p className="no-model-data-message">
                   There are no Pages saved.
                 </p>)
               }

@@ -7,7 +7,9 @@ import { FiSettings } from "react-icons/fi";
 
 import { AdminSideBarProps } from "../PropInterfaces";
 
-const AdminSideBar: FC<AdminSideBarProps> = ({ adminRoutes, borderChangeCallback, fetchAllData }) => {
+// TODO: Move activePage up to the main app level to fix the closed folder bug
+//    wait, couldn't I just grab it from the URL, mapping them to an object?
+const AdminSideBar: FC<AdminSideBarProps> = ({ /*activePage, */ adminRoutes, borderChangeCallback, fetchAllData }) => {
   const [ activePage, setActivePage ]   = useState("/admin");
   
   return(
