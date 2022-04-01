@@ -15,4 +15,27 @@ From the admin page, individual instances of our data models can be added, updat
 
 ## Screenshots
 
-![](screenshots/main-landing.png | width=384)
+### Main Site
+
+![Main landing page.](screenshots/main-landing.png)
+*Main landing page*
+
+![Model overview.](screenshots/project-model-overview.png)
+*The Project overview page*
+
+![Model overview filtering.](screenshots/project-model-overview-filtering.png)
+*Project overview with the result filter tool*
+
+![Model view 1.](screenshots/model-view-1.png)
+*The view for a single Post*
+
+![Model view 2.](screenshots/model-view-2.png)
+*More detail on the Post content*
+
+### Admin Tools
+
+![Admin landing page.](screenshots/admin-landing.png)
+*Admin landing page*
+
+![Admin model overview page.](screenshots/admin-model-overview.png)
+*Admin model overview page*
