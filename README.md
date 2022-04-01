@@ -1,4 +1,4 @@
-# Portfolio Frontend ![](screenshots/coffee-logo.png)
+# Portfolio Frontend ![](screenshots/coffee-logo-small.png)
 
 A frontend for a Portfolio site, made using React, TypeScript, and SASS.
 
