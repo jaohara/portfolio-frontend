@@ -15,4 +15,4 @@ From the admin page, individual instances of our data models can be added, updat
 
 ## Screenshots
 
-![](screenshots/main-landing.png | width=384)
+![](screenshots/main-landing.png|width=384)
